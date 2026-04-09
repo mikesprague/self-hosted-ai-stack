@@ -17,6 +17,7 @@ include:
       - ./stack/affine/docker-compose.yml
       - ./stack/blinko/docker-compose.yml
       - ./stack/docmost/docker-compose.yml
+      - ./stack/flatnotes/docker-compose.yml
       - ./stack/jotty/docker-compose.yml
       - ./stack/memos/docker-compose.yml
       - ./stack/silverbullet/docker-compose.yml

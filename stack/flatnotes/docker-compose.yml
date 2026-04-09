@@ -1,0 +1,14 @@
+services:
+  flatnotes:
+    container_name: flatnotes
+    image: dullage/flatnotes:latest
+    environment:
+      FLATNOTES_AUTH_TYPE: ${FLATNOTES_AUTH_TYPE:-"password"}
+      FLATNOTES_USERNAME: ${FLATNOTES_USERNAME:?missing}
+      FLATNOTES_PASSWORD: ${FLATNOTES_PASSWORD:?missing}
+      FLATNOTES_SECRET_KEY: ${FLATNOTES_SECRET_KEY:?missing}
+    volumes:
+      - ../../local-volumes/flatnotes/data:/data
+    ports:
+      - 8352:8080
+    restart: unless-stopped
