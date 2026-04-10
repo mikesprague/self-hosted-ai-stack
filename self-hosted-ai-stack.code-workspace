@@ -6,6 +6,7 @@
   ],
   "settings": {
     "cSpell.words": [
+      "APIKEY",
       "appendonly",
       "berriai",
       "blinko",
@@ -16,6 +17,8 @@
       "embeddinggemma",
       "fccview",
       "flatnotes",
+      "flowise",
+      "flowiseai",
       "freshrss",
       "gethomepage",
       "getmeili",
@@ -47,6 +50,7 @@
       "predeploy",
       "rocksdb",
       "searxng",
+      "SECRETKEY",
       "silverbullet",
       "sslmode",
       "streamable",
@@ -61,7 +65,7 @@
       "UVICORN",
       "valkey",
       "webui",
-      "zenika",
+      "zenika"
     ],
   },
 }

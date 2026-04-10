@@ -1,0 +1,41 @@
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    container_name: flowise
+    ports:
+      - 8355:3000
+    volumes:
+      - ../../local-volumes/flowise/data:/root/.flowise
+    environment:
+      FLOWISE_USERNAME: "${FLOWISE_USERNAME}"
+      FLOWISE_PASSWORD: "${FLOWISE_PASSWORD}"
+      DATABASE_TYPE: postgres
+      DATABASE_HOST: flowise-postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: "${FLOWISE_POSTGRES_USER}"
+      DATABASE_PASSWORD: "${FLOWISE_POSTGRES_PASSWORD}"
+      DATABASE_NAME: "${FLOWISE_POSTGRES_DB}"
+      APIKEY_PATH: /root/.flowise
+      SECRETKEY_PATH: /root/.flowise
+      LOG_LEVEL: "info"
+      CORS_ORIGINS: "*"
+    depends_on:
+      flowise-postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  flowise-postgres:
+    image: pgvector/pgvector:pg17
+    container_name: flowise-postgres
+    volumes:
+      - ../../local-volumes/flowise/postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "${FLOWISE_POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${FLOWISE_POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${FLOWISE_POSTGRES_DB}"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${FLOWISE_POSTGRES_USER}", "-d", "${FLOWISE_POSTGRES_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
