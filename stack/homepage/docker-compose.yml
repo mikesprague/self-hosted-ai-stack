@@ -7,6 +7,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
       - ../../local-volumes/homepage/config:/app/config # Make sure your local config directory exists
+      - ../../local-volumes/homepage/icons:/app/public/icons # (optional) For custom icons used in bookmarks and services configs
     environment:
       HOMEPAGE_ALLOWED_HOSTS: "${HOMEPAGE_ALLOWED_HOSTS:-*}"
     restart: unless-stopped
