@@ -24,6 +24,11 @@ include:
       - ./stack/trilium-notes/docker-compose.yml
       # RSS App
       - ./stack/freshrss/docker-compose.yml
+      # Productivity Apps
+      - ./stack/super-productivity/docker-compose.yml
+      # Automation/Workflow Apps
+      - ./stack/flowise/docker-compose.yml
+      - ./stack/n8n/docker-compose.yml
       # Dashboard
       - ./stack/homepage/docker-compose.yml
 

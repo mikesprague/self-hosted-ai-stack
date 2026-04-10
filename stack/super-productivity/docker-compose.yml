@@ -1,0 +1,25 @@
+services:
+  super-productivity:
+    image: johannesjo/super-productivity:latest
+    container_name: super-productivity
+    restart: unless-stopped
+    ports:
+      - 8354:80
+    environment:
+      SP_SYNC_PROVIDER: WebDAV
+      SP_WEBDAV_URL: "http://super-productivity-webdav:80"
+      SP_WEBDAV_USER: "${SP_WEBDAV_USER}"
+      SP_WEBDAV_PASSWORD: "${SP_WEBDAV_PASSWORD}"
+    depends_on:
+      - super-productivity-webdav
+
+  super-productivity-webdav:
+    image: bytemark/webdav:2.4
+    container_name: super-productivity-webdav
+    restart: unless-stopped
+    environment:
+      AUTH_TYPE: Basic
+      USERNAME: "${SP_WEBDAV_USER}"
+      PASSWORD: "${SP_WEBDAV_PASSWORD}"
+    volumes:
+      - ../../local-volumes/super-productivity/webdav:/var/lib/dav
