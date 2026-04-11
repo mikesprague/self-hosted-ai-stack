@@ -1,4 +1,4 @@
-# Self-Hosted AI Stack
+# Self-Hosted App Stack
 
 Docker Compose workspace for running a personal collection of AI, knowledge, notes, and dashboard services on a shared network with persistent local storage.
 
