@@ -1,0 +1,40 @@
+name: self-hosted-ai-stack
+
+# shared network for all applications in the stack
+networks:
+  default:
+    name: self-hosted-ai-stack-network
+
+# load compose files for each application
+include:
+  - path:
+      # Core Apps
+      - ./stack/searxng/compose.yaml
+      - ./stack/open-webui/compose.yaml
+      - ./stack/open-notebook/compose.yaml
+      - ./stack/karakeep/compose.yaml
+      # Notes Apps (comment out any you don't want to run)
+      - ./stack/affine/compose.yaml
+      - ./stack/blinko/compose.yaml
+      - ./stack/docmost/compose.yaml
+      - ./stack/flatnotes/compose.yaml
+      - ./stack/jotty/compose.yaml
+      - ./stack/memos/compose.yaml
+      - ./stack/silverbullet/compose.yaml
+      - ./stack/trilium-notes/compose.yaml
+      # RSS App
+      - ./stack/freshrss/compose.yaml
+      # Productivity Apps
+      - ./stack/super-productivity/compose.yaml
+      # Automation/Workflow Apps
+      - ./stack/flowise/compose.yaml
+      - ./stack/n8n/compose.yaml
+      # Monitoring Apps
+      - ./stack/uptime-kuma/compose.yaml
+      # Dashboard
+      - ./stack/homepage/compose.yaml
+
+    # load environment variables from .env file
+    # used for interpolation in each app's compose file
+    env_file:
+      - .env
