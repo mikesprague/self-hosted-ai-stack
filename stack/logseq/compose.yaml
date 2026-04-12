@@ -1,0 +1,12 @@
+services:
+  logseq:
+    image: ghcr.io/logseq/logseq-webapp:latest
+    container_name: logseq
+    restart: unless-stopped
+    ports:
+      - 8360:80
+    environment:
+      TZ: "America/New_York"
+      LOGSEQ_DIRECTORY: "/Logseq"
+    volumes:
+      - ../../local-volumes/logseq:/Logseq

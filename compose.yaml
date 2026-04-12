@@ -22,6 +22,7 @@ include:
       - ./stack/flatnotes/compose.yaml
       - ./stack/karakeep/compose.yaml
       - ./stack/jotty/compose.yaml
+      - ./stack/logseq/compose.yaml
       - ./stack/memos/compose.yaml
       - ./stack/silverbullet/compose.yaml
       - ./stack/trilium-notes/compose.yaml
