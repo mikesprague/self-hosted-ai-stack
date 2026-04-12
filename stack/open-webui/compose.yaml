@@ -82,6 +82,22 @@ services:
               "name": "Context7",
               "description": "Pull up-to-date version-specific llm-friendly documentation and code examples for any library"
             }
+          },
+          "mermaid": {
+            "type": "mcp"
+            "url": "https://mcp.mermaid.ai/mcp",
+            "spec_type": "url",
+            "spec": "",
+            "path": "",
+            "auth_type": "none",
+            "headers": {},
+            "key": "",
+            "config": { "enable": true },
+            "info": {
+              "id": "mermaid",
+              "name": "Mermaid",
+              "description": "The Mermaid MCP Server enables AI assistants to create, validate, and render Mermaid diagrams"
+            }
           }
         ]
 
