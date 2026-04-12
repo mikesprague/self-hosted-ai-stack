@@ -4,6 +4,7 @@ name: self-hosted-app-stack
 networks:
   default:
     name: self-hosted-app-stack-network
+    external: true
 
 # load compose files for each application
 include:
@@ -39,6 +40,8 @@ include:
       - ./stack/uptime-kuma/compose.yaml
       # Personal Cloud
       - ./stack/nextcloud/compose.yaml
+      # Home Automation
+      - ./stack/home-assistant/compose.yaml
       # Dashboard
       - ./stack/homepage/compose.yaml
 

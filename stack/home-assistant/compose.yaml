@@ -1,0 +1,11 @@
+services:
+  home-assistant:
+    image: homeassistant/home-assistant:stable
+    container_name: home-assistant
+    restart: unless-stopped
+    ports:
+      - "${HOME_ASSISTANT_PORT:-8362}:8123"
+    environment:
+      TZ: "${TZ:-America/New_York}"
+    volumes:
+      - ../../local-volumes/home-assistant/config:/config
