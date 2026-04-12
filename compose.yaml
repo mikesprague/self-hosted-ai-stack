@@ -9,14 +9,18 @@ networks:
 # load compose files for each application
 include:
   - path:
-      # AI Apps
+      # Personal Cloud
+      - ./stack/nextcloud/compose.yaml
+      # Home Automation
+      - ./stack/home-assistant/compose.yaml
+      # AI/LLM
       - ./stack/open-notebook/compose.yaml
       - ./stack/open-webui/compose.yaml
       # Search Engine
       - ./stack/searxng/compose.yaml
       # Password Manager
       - ./stack/vaultwarden/compose.yaml
-      # Knowledge Management Apps
+      # PKM Tools
       - ./stack/affine/compose.yaml
       - ./stack/blinko/compose.yaml
       - ./stack/docmost/compose.yaml
@@ -29,19 +33,15 @@ include:
       - ./stack/trilium-notes/compose.yaml
       # RSS Reader
       - ./stack/freshrss/compose.yaml
-      # Productivity Apps
+      # Task Management/Productivity
       - ./stack/super-productivity/compose.yaml
-      # Automation/Workflow Apps
+      # Automation/Workflow
       - ./stack/flowise/compose.yaml
       - ./stack/n8n/compose.yaml
-      # Monitoring/Management Apps
+      # Monitoring/Management
       - ./stack/dozzle/compose.yaml
       - ./stack/portainer/compose.yaml
       - ./stack/uptime-kuma/compose.yaml
-      # Personal Cloud
-      - ./stack/nextcloud/compose.yaml
-      # Home Automation
-      - ./stack/home-assistant/compose.yaml
       # Dashboard
       - ./stack/homepage/compose.yaml
 
