@@ -12,10 +12,10 @@ Several note-taking and knowledge-management apps are included on purpose. They 
 | --- | --- |
 | **AI / Research** | |
 | [Open WebUI](https://openwebui.com/) | Unified chat interface for local and cloud LLMs |
-| [SearXNG](https://searxng.org/) | Privacy-focused metasearch engine combining multiple sources |
-| [Open Notebook](https://www.open-notebook.ai/) | AI-powered research notebook with full privacy control |
+| [SearXNG](https://searxng.org/) | Private internet metasearch engine that aggregates results from several search services |
+| [Open Notebook](https://www.open-notebook.ai/) | Private, multi-model, 100% local, full-featured alternative to Notebook LM |
 | **Knowledge Management** | |
-| [Affine](https://affine.pro/) | Docs, whiteboards, and databases merged into one workspace |
+| [Affine](https://affine.pro/) | Workspace with fully merged docs, whiteboards and databases |
 | [Blinko](https://blinko.space/) | AI-powered card notes for quick capture and organization |
 | [Docmost](https://docmost.com/) | Collaborative wiki with real-time editing, team spaces, and AI |
 | [Flatnotes](https://github.com/Dullage/flatnotes) | Distraction-free markdown notes stored as plain searchable files |
@@ -27,7 +27,7 @@ Several note-taking and knowledge-management apps are included on purpose. They 
 | **Feeds** | |
 | [FreshRSS](https://freshrss.org/) | Fast, customizable RSS and Atom feed aggregator |
 | **Productivity** | |
-| [Super Productivity](https://super-productivity.com/) | Task manager with time tracking, Pomodoro, and GitHub sync |
+| [Super Productivity](https://super-productivity.com/) | Privacy-focused deep work system with tasks, time tracking, and focus tools |
 | **Automation / Workflows** | |
 | [Flowise](https://flowiseai.com/) | Drag-and-drop platform for building AI agents and chatbots |
 | [n8n](https://n8n.io/) | Workflow automation connecting APIs, apps, and services |
