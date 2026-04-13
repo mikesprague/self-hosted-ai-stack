@@ -1,6 +1,6 @@
 services:
   hoppscotch-postgres:
-    image: pgvector/pgvector:pg17
+    image: pgvector/pgvector:pg18
     container_name: hoppscotch-postgres
     restart: unless-stopped
     environment:
@@ -10,7 +10,7 @@ services:
       DATABASE_URL: "postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@hoppscotch-postgres:5432/${HOPPSCOTCH_POSTGRES_DB}"
       DATA_ENCRYPTION_KEY: "${HOPPSCOTCH_DATA_ENCRYPTION_KEY}"
     volumes:
-      - ../../local-volumes/hoppscotch/postgresql/data:/var/lib/postgresql/data
+      - ../../local-volumes/hoppscotch/postgresql:/var/lib/postgresql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $HOPPSCOTCH_POSTGRES_USER -d $HOPPSCOTCH_POSTGRES_DB" ]
       interval: 10s
