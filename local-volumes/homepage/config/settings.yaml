@@ -11,7 +11,39 @@ color: slate
 
 theme: dark
 
+headerStyle: boxedWidgets
+
+statusStyle: basic
+
+disableIndexing: true
+
 cardblur: md
+
+layout:
+  All Services:
+    header: false
+    style: row
+    columns: 5
+    AI/Research:
+      header: true
+      style: row
+      columns: 1
+    Automation:
+      header: true
+      style: row
+      columns: 1
+    Monitoring:
+      header: true
+      style: row
+      columns: 1
+    PKM:
+      header: true
+      style: row
+      columns: 1
+    Productivity:
+      header: true
+      style: row
+      columns: 1
 
 providers:
   openweathermap: openweathermapapikey
