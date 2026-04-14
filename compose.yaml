@@ -26,6 +26,7 @@ include:
       - ./stack/docmost/compose.yaml
       - ./stack/flatnotes/compose.yaml
       - ./stack/karakeep/compose.yaml
+      - ./stack/joplin-server/compose.yaml
       - ./stack/jotty/compose.yaml
       - ./stack/logseq/compose.yaml
       - ./stack/memos/compose.yaml
