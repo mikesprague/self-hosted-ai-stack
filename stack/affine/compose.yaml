@@ -58,7 +58,8 @@ services:
       - ../../local-volumes/affine/storage:/root/.affine/storage
       - ../../local-volumes/affine/config:/root/.affine/config
     environment:
+      selfhosted: true
       REDIS_SERVER_HOST: affine-redis
       DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USER}:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/${AFFINE_POSTGRES_DB}"
-      CONFIG_LOCATION: ../../local-volumes/affine/config
+      CONFIG_LOCATION: "/root/.affine/config"
     restart: unless-stopped
