@@ -3,8 +3,6 @@ name: self-hosted-app-stack
 # shared network for all applications in the stack
 networks:
   default:
-    name: self-hosted-app-stack-network
-    external: true
 
 # load compose files for each application
 include:
