@@ -1,8 +1,11 @@
 {
   "folders": [
     {
-      "path": ".",
+      "path": "."
     },
+    {
+      "path": "../../Desktop/sync"
+    }
   ],
   "settings": {
     "cSpell.words": [
@@ -20,6 +23,7 @@
       "dockpeek",
       "Docmost",
       "dozzle",
+      "dpage",
       "dullage",
       "embeddinggemma",
       "esperotech",
@@ -67,6 +71,8 @@
       "OVERWRITECLIURL",
       "OVERWRITEHOST",
       "OVERWRITEPROTOCOL",
+      "pgadmin",
+      "PGPASSWORD",
       "pgvector",
       "postgresdb",
       "preconfiguration",

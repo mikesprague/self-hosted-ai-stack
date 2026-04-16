@@ -1,0 +1,2 @@
+-- Optional one-time bootstrap only.
+-- Keep this minimal because it only runs on a fresh data directory.

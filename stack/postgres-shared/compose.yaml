@@ -1,0 +1,49 @@
+services:
+  postgres-shared:
+    image: pgvector/pgvector:pg17
+    container_name: postgres-shared
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${POSTGRES_SHARED_SUPERUSER}"
+      POSTGRES_PASSWORD: "${POSTGRES_SHARED_SUPERUSER_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_SHARED_DEFAULT_DB}"
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_SHARED_SUPERUSER}", "-d", "${POSTGRES_SHARED_DEFAULT_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ../../local-volumes/postgres-shared/postgresql/data:/var/lib/postgresql/data
+
+  postgres-maintenance:
+    image: postgres:17-alpine
+    container_name: postgres-maintenance
+    restart: "no"
+    depends_on:
+      postgres-shared:
+        condition: service_healthy
+    environment:
+      POSTGRES_HOST: "postgres-shared"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "${POSTGRES_SHARED_SUPERUSER}"
+      PGPASSWORD: "${POSTGRES_SHARED_SUPERUSER_PASSWORD}"
+      POSTGRES_APP_DEFINITIONS: "${POSTGRES_APP_DEFINITIONS}"
+    volumes:
+      - ../../local-volumes/postgres-shared/scripts:/scripts:ro
+    command: [ "sh", "/scripts/run-maintenance.sh" ]
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: unless-stopped
+    depends_on:
+      postgres-shared:
+        condition: service_healthy
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "${PGADMIN_DEFAULT_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
+    volumes:
+      - ../../local-volumes/postgres-shared/pgadmin:/var/lib/pgadmin
