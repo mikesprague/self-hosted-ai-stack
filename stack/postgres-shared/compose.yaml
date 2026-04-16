@@ -40,6 +40,8 @@ services:
     depends_on:
       postgres-shared:
         condition: service_healthy
+      postgres-maintenance:
+        condition: service_completed_successfully
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     environment:
