@@ -7,6 +7,8 @@ networks:
 # load compose files for each application
 include:
   - path:
+      # Postgres/PGAdmin
+      - ./stack/postgres-shared/compose.yaml
       # Personal Cloud
       - ./stack/nextcloud/compose.yaml
       # Home Automation
@@ -14,6 +16,7 @@ include:
       # AI/LLM
       - ./stack/open-webui/compose.yaml
       - ./stack/open-notebook/compose.yaml
+      - ./stack/litellm/compose.yaml
       # Search Engine
       - ./stack/searxng/compose.yaml
       # Password Manager
