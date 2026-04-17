@@ -9,23 +9,6 @@ services:
       retries: 5
     restart: unless-stopped
 
-  affine-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: affine-postgres
-    environment:
-      POSTGRES_USER: "${AFFINE_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${AFFINE_POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${AFFINE_POSTGRES_DB}"
-      POSTGRES_INITDB_ARGS: '--data-checksums'
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${AFFINE_POSTGRES_USER}", "-d", "${AFFINE_POSTGRES_DB}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
-    volumes:
-      - ../../local-volumes/affine/postgresql:/var/lib/postgresql
-
   affine-migration:
     image: ghcr.io/toeverything/affine:stable
     container_name: affine-migration-job
@@ -35,9 +18,9 @@ services:
     command: [ "sh", "-c", "node ./scripts/self-host-predeploy.js" ]
     environment:
       REDIS_SERVER_HOST: affine-redis
-      DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USER}:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/${AFFINE_POSTGRES_DB}"
+      DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USER}:${AFFINE_POSTGRES_PASSWORD}@postgres-shared:5432/${AFFINE_POSTGRES_DB}"
     depends_on:
-      affine-postgres:
+      postgres-shared:
         condition: service_healthy
       affine-redis:
         condition: service_healthy
@@ -50,7 +33,7 @@ services:
     depends_on:
       affine-redis:
         condition: service_healthy
-      affine-postgres:
+      postgres-shared:
         condition: service_healthy
       affine-migration:
         condition: service_completed_successfully
@@ -60,6 +43,6 @@ services:
     environment:
       selfhosted: true
       REDIS_SERVER_HOST: affine-redis
-      DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USER}:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/${AFFINE_POSTGRES_DB}"
+      DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USER}:${AFFINE_POSTGRES_PASSWORD}@postgres-shared:5432/${AFFINE_POSTGRES_DB}"
       CONFIG_LOCATION: "/root/.affine/config"
     restart: unless-stopped

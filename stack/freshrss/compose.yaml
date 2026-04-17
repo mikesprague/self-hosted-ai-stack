@@ -1,30 +1,11 @@
 services:
-  freshrss-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: freshrss-postgres
-    logging:
-      options:
-        max-size: 10m
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${FRESHRSS_POSTGRES_USER}", "-d", "${FRESHRSS_POSTGRES_DB}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
-    volumes:
-      - ../../local-volumes/freshrss/postgresql:/var/lib/postgresql
-    environment:
-      POSTGRES_DB: "${FRESHRSS_POSTGRES_DB}"
-      POSTGRES_USER: "${FRESHRSS_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${FRESHRSS_POSTGRES_PASSWORD}"
-
   freshrss:
     image: freshrss/freshrss:latest
     container_name: freshrss
     ports:
       - '${FRESHRSS_PUBLISHED_PORT:-8353}:80'
     depends_on:
-      freshrss-postgres:
+      postgres-shared:
         condition: service_healthy
     logging:
       options:
@@ -47,4 +28,4 @@ services:
       ADMIN_PASSWORD: "${FRESHRSS_ADMIN_PASSWORD}"
       ADMIN_API_PASSWORD: "${FRESHRSS_ADMIN_API_PASSWORD}"
       PUBLISHED_PORT: "${FRESHRSS_PUBLISHED_PORT:-8353}"
-      DB_HOST: "freshrss-postgres"
+      DB_HOST: "postgres-shared"

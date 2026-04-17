@@ -1,21 +1,4 @@
 services:
-  blinko-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: blinko-postgres
-    restart: always
-    environment:
-      POSTGRES_DB: ${BLINKO_POSTGRES_DB:-postgres}
-      POSTGRES_USER: ${BLINKO_POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${BLINKO_POSTGRES_PASSWORD:?missing}
-      TZ: America/New_York
-    volumes:
-      - ../../local-volumes/blinko/postgresql:/var/lib/postgresql
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres", "-d", "postgres" ]
-      interval: 5s
-      timeout: 10s
-      retries: 5
-
   blinko-web:
     image: blinkospace/blinko:latest
     container_name: blinko-web
@@ -24,9 +7,9 @@ services:
       NEXTAUTH_URL: "http://${TAILNET_IP_ADDRESS}:${BLINKO_PORT:-1111}"
       NEXT_PUBLIC_BASE_URL: "http://${TAILNET_IP_ADDRESS}:${BLINKO_PORT:-1111}"
       NEXTAUTH_SECRET: "${BLINKO_NEXTAUTH_SECRET:?missing}"
-      DATABASE_URL: postgresql://${BLINKO_POSTGRES_USER}:${BLINKO_POSTGRES_PASSWORD}@blinko-postgres:5432/${BLINKO_POSTGRES_DB}
+      DATABASE_URL: postgresql://${BLINKO_POSTGRES_USER}:${BLINKO_POSTGRES_PASSWORD}@postgres-shared:5432/${BLINKO_POSTGRES_DB}
     depends_on:
-      blinko-postgres:
+      postgres-shared:
         condition: service_healthy
     restart: unless-stopped
     logging:

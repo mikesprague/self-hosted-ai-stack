@@ -1,20 +1,4 @@
 services:
-  n8n-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: n8n-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: "${N8N_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${N8N_POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${N8N_POSTGRES_DB}"
-    volumes:
-      - ../../local-volumes/n8n/postgresql:/var/lib/postgresql
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${N8N_POSTGRES_USER}", "-d", "${N8N_POSTGRES_DB}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
@@ -28,7 +12,7 @@ services:
       WEBHOOK_URL: "http://${TAILNET_DOMAIN}:${N8N_PORT:-5678}/" # Your public URL for webhooks
       N8N_ENCRYPTION_KEY: "${N8N_ENCRYPTION_KEY}"
       DB_TYPE: "postgresdb"
-      DB_POSTGRESDB_HOST: "n8n-postgres"
+      DB_POSTGRESDB_HOST: "postgres-shared"
       DB_POSTGRESDB_PORT: "5432"
       DB_POSTGRESDB_DATABASE: "${N8N_POSTGRES_DB}"
       DB_POSTGRESDB_USER: "${N8N_POSTGRES_USER}"
@@ -38,7 +22,7 @@ services:
     volumes:
       - ../../local-volumes/n8n/data:/home/node/.n8n
     depends_on:
-      n8n-postgres:
+      postgres-shared:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1" ]

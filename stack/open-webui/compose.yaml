@@ -1,26 +1,10 @@
 services:
-  open-webui-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: open-webui-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: "${OPEN_WEBUI_POSTGRES_DB}"
-      POSTGRES_USER: "${OPEN_WEBUI_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${OPEN_WEBUI_POSTGRES_PASSWORD}"
-    volumes:
-      - ../../local-volumes/open-webui/postgresql:/var/lib/postgresql
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $OPEN_WEBUI_POSTGRES_USER -d $OPEN_WEBUI_POSTGRES_DB" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
     restart: unless-stopped
     depends_on:
-      open-webui-postgres:
+      postgres-shared:
         condition: service_healthy
     ports:
       - "${OPEN_WEBUI_PORT:-3000}:8080"
@@ -44,9 +28,9 @@ services:
       ENABLE_BASE_MODELS_CACHE: "true"
       MODELS_CACHE_TTL: 300
 
-      DATABASE_URL: "postgresql://${OPEN_WEBUI_POSTGRES_USER}:${OPEN_WEBUI_POSTGRES_PASSWORD}@open-webui-postgres:5432/${OPEN_WEBUI_POSTGRES_DB}"
+      DATABASE_URL: "postgresql://${OPEN_WEBUI_POSTGRES_USER}:${OPEN_WEBUI_POSTGRES_PASSWORD}@postgres-shared:5432/${OPEN_WEBUI_POSTGRES_DB}"
       VECTOR_DB: "pgvector"
-      PGVECTOR_DB_URL: "postgresql://${OPEN_WEBUI_POSTGRES_USER}:${OPEN_WEBUI_POSTGRES_PASSWORD}@open-webui-postgres:5432/${OPEN_WEBUI_POSTGRES_DB}"
+      PGVECTOR_DB_URL: "postgresql://${OPEN_WEBUI_POSTGRES_USER}:${OPEN_WEBUI_POSTGRES_PASSWORD}@postgres-shared:5432/${OPEN_WEBUI_POSTGRES_DB}"
       PGVECTOR_CREATE_EXTENSION: "true"
       UVICORN_WORKERS: 1
 

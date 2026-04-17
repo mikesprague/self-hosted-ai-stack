@@ -1,40 +1,21 @@
 services:
-  hoppscotch-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: hoppscotch-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: "${HOPPSCOTCH_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${HOPPSCOTCH_POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${HOPPSCOTCH_POSTGRES_DB}"
-      DATABASE_URL: "postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@hoppscotch-postgres:5432/${HOPPSCOTCH_POSTGRES_DB}"
-      DATA_ENCRYPTION_KEY: "${HOPPSCOTCH_DATA_ENCRYPTION_KEY}"
-    volumes:
-      - ../../local-volumes/hoppscotch/postgresql:/var/lib/postgresql
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $HOPPSCOTCH_POSTGRES_USER -d $HOPPSCOTCH_POSTGRES_DB" ]
-      interval: 10s
-      start_period: 15s
-      timeout: 5s
-      retries: 10
-
   hoppscotch-migration:
     image: hoppscotch/hoppscotch:latest
     container_name: hoppscotch-migration-job
     command: [ "sh", "-c", "pnpm exec prisma migrate deploy" ]
     environment:
-      DATABASE_URL: "postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@hoppscotch-postgres:5432/${HOPPSCOTCH_POSTGRES_DB}"
+      DATABASE_URL: "postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@postgres-shared:5432/${HOPPSCOTCH_POSTGRES_DB}"
       DATA_ENCRYPTION_KEY: "${HOPPSCOTCH_DATA_ENCRYPTION_KEY}"
     volumes:
       - ../../local-volumes/hoppscotch/postgresql:/var/lib/postgresql
     depends_on:
-      hoppscotch-postgres:
+      postgres-shared:
         condition: service_healthy
 
   hoppscotch:
     image: hoppscotch/hoppscotch:latest
     environment:
-      DATABASE_URL: postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@hoppscotch-postgres:5432/${HOPPSCOTCH_POSTGRES_DB}
+      DATABASE_URL: postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@postgres-shared:5432/${HOPPSCOTCH_POSTGRES_DB}
       DATA_ENCRYPTION_KEY: "${HOPPSCOTCH_DATA_ENCRYPTION_KEY}"
       WHITELISTED_ORIGINS: http://localhost:${HOPPSCOTCH_API_PORT},http://${TAILNET_IP_ADDRESS}:${HOPPSCOTCH_API_PORT},http://localhost:${HOPPSCOTCH_PORT},http://${TAILNET_IP_ADDRESS}:${HOPPSCOTCH_PORT},http://localhost:${HOPPSCOTCH_ADMIN_PORT},http://${TAILNET_IP_ADDRESS}:${HOPPSCOTCH_ADMIN_PORT},app://localhost_3200,app://hoppscotch
       VITE_BASE_URL: http://${TAILNET_IP_ADDRESS}:${HOPPSCOTCH_PORT}
@@ -53,7 +34,7 @@ services:
       - "${HOPPSCOTCH_ADMIN_PORT:-3100}:3100"
       - "${HOPPSCOTCH_API_PORT:-3170}:3170"
     depends_on:
-      hoppscotch-postgres:
+      postgres-shared:
         condition: service_healthy
       hoppscotch-migration:
         condition: service_completed_successfully

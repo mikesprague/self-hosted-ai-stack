@@ -1,27 +1,10 @@
 services:
-  joplin-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: joplin-postgres
-    environment:
-      POSTGRES_USER: "${JOPLIN_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${JOPLIN_POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${JOPLIN_POSTGRES_DB}"
-      POSTGRES_INITDB_ARGS: '--data-checksums'
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${JOPLIN_POSTGRES_USER}", "-d", "${JOPLIN_POSTGRES_DB}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
-    volumes:
-      - ../../local-volumes/joplin-server/postgresql:/var/lib/postgresql
-
   joplin-server:
     image: joplin/server:latest
     container_name: joplin-server
     restart: unless-stopped
     depends_on:
-      joplin-postgres:
+      postgres-shared:
         condition: service_healthy
     environment:
       APP_PORT: "22300"
@@ -31,7 +14,7 @@ services:
       POSTGRES_DATABASE: "${JOPLIN_POSTGRES_DB}"
       POSTGRES_USER: "${JOPLIN_POSTGRES_USER}"
       POSTGRES_PORT: "5432"
-      POSTGRES_HOST: "joplin-postgres"
+      POSTGRES_HOST: "postgres-shared"
       MAILER_ENABLED: 1
       MAILER_HOST: "mailcatcher"
       MAILER_PORT: "${MAILCATCHER_SMTP_PORT}"

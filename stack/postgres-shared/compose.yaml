@@ -1,8 +1,10 @@
 services:
   postgres-shared:
-    image: pgvector/pgvector:pg17
+    image: pgvector/pgvector:pg18
     container_name: postgres-shared
     restart: unless-stopped
+    ports:
+      - "${POSTGRES_SHARED_PORT:-5432}:5432"
     environment:
       POSTGRES_USER: "${POSTGRES_SHARED_SUPERUSER}"
       POSTGRES_PASSWORD: "${POSTGRES_SHARED_SUPERUSER_PASSWORD}"
@@ -14,24 +16,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ../../local-volumes/postgres-shared/postgresql/data:/var/lib/postgresql/data
-
-  postgres-maintenance:
-    image: postgres:17-alpine
-    container_name: postgres-maintenance
-    restart: "no"
-    depends_on:
-      postgres-shared:
-        condition: service_healthy
-    environment:
-      POSTGRES_HOST: "postgres-shared"
-      POSTGRES_PORT: "5432"
-      POSTGRES_USER: "${POSTGRES_SHARED_SUPERUSER}"
-      PGPASSWORD: "${POSTGRES_SHARED_SUPERUSER_PASSWORD}"
-      POSTGRES_APP_DEFINITIONS: "${POSTGRES_APP_DEFINITIONS}"
-    volumes:
-      - ../../local-volumes/postgres-shared/scripts:/scripts:ro
-    command: [ "sh", "/scripts/run-maintenance.sh" ]
+      - ../../local-volumes/postgres-shared/postgresql:/var/lib/postgresql
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -40,8 +25,6 @@ services:
     depends_on:
       postgres-shared:
         condition: service_healthy
-      postgres-maintenance:
-        condition: service_completed_successfully
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     environment:

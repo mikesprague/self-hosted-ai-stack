@@ -1,21 +1,4 @@
 services:
-  memos-postgres:
-    image: pgvector/pgvector:pg18
-    container_name: memos-postgres
-    environment:
-      POSTGRES_USER: "${MEMOS_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${MEMOS_POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${MEMOS_POSTGRES_DB}"
-      POSTGRES_INITDB_ARGS: '--data-checksums'
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${MEMOS_POSTGRES_USER}", "-d", "${MEMOS_POSTGRES_DB}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
-    volumes:
-      - ../../local-volumes/memos/postgresql:/var/lib/postgresql
-
   memos:
     image: neosmemo/memos:stable
     container_name: memos
@@ -24,7 +7,7 @@ services:
     environment:
       MEMOS_PORT: "${MEMOS_PORT:-5230}"
       MEMOS_DRIVER: postgres
-      MEMOS_DSN: "postgres://${MEMOS_POSTGRES_USER}:${MEMOS_POSTGRES_PASSWORD}@memos-postgres:5432/${MEMOS_POSTGRES_DB}?sslmode=disable"
+      MEMOS_DSN: "postgres://${MEMOS_POSTGRES_USER}:${MEMOS_POSTGRES_PASSWORD}@postgres-shared:5432/${MEMOS_POSTGRES_DB}?sslmode=disable"
       # MEMOS_INSTANCE_URL: http://memos.example.com
     restart: unless-stopped
     volumes:
