@@ -23,15 +23,19 @@ layout:
   All Services:
     header: false
     style: row
-    columns: 6
-    AI/Research:
-      header: true
+    columns: 5
+    AI/Research/Automation:
+      header: false
       style: row
       columns: 1
-    Automation:
-      header: true
-      style: row
-      columns: 1
+      AI/Research:
+        header: true
+        style: row
+        columns: 1
+      Automation:
+        header: true
+        style: row
+        columns: 1
     Monitoring:
       header: true
       style: row
