@@ -16,6 +16,7 @@ services:
 
   open-notebook:
     image: lfnovo/open_notebook:v1-latest
+    container_name: open-notebook
     ports:
       - "5055:5055" # REST API
       - "${OPEN_NOTEBOOK_PORT:-8502}:8502" # Web UI

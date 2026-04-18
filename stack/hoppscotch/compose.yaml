@@ -14,6 +14,7 @@ services:
 
   hoppscotch:
     image: hoppscotch/hoppscotch:latest
+    container_name: hoppscotch
     environment:
       DATABASE_URL: postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@postgres-shared:5432/${HOPPSCOTCH_POSTGRES_DB}
       DATA_ENCRYPTION_KEY: "${HOPPSCOTCH_DATA_ENCRYPTION_KEY}"

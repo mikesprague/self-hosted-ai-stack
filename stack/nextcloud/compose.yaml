@@ -1,6 +1,7 @@
 services:
   nextcloud-mariadb:
     image: mariadb:11
+    container_name: nextcloud-mariadb
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     environment:
@@ -23,6 +24,7 @@ services:
 
   nextcloud:
     image: nextcloud:apache
+    container_name: nextcloud
     restart: unless-stopped
     depends_on:
       - nextcloud-mariadb
