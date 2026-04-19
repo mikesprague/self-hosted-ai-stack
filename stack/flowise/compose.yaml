@@ -7,7 +7,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M
+          memory: 750M
     volumes:
       - ../../local-volumes/flowise/data:/root/.flowise
     environment:
