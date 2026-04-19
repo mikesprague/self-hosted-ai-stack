@@ -2,7 +2,20 @@ services:
   docmost-redis:
     image: redis:8-alpine
     container_name: docmost-redis
-    command: [ "redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction" ]
+    command:
+      - redis-server
+      - --appendonly yes
+      - --maxmemory 250mb # a bit under container limit so you leave room for Redis overhead
+      - --maxmemory-policy allkeys-lru
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
     volumes:
       - ../../local-volumes/docmost/redis/data:/data
@@ -16,9 +29,9 @@ services:
           memory: 300M
     depends_on:
       postgres-shared:
-        condition: service_started
+        condition: service_healthy
       docmost-redis:
-        condition: service_started
+        condition: service_healthy
     # extra_hosts:
     #   - "host.docker.internal:host-gateway"
     environment:

@@ -19,6 +19,14 @@ services:
   nextcloud-redis:
     image: redis:8-alpine
     container_name: nextcloud-redis
+    command:
+      - redis-server
+      - --maxmemory 250mb # a bit under container limit so you leave room for Redis overhead
+      - --maxmemory-policy allkeys-lru
+    deploy:
+      resources:
+        limits:
+          memory: 300M
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]

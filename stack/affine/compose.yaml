@@ -2,6 +2,14 @@ services:
   affine-redis:
     image: redis:8-alpine
     container_name: affine-redis
+    command:
+      - redis-server
+      - --maxmemory 225mb # a bit under container limit so you leave room for Redis overhead
+      - --maxmemory-policy allkeys-lru
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 10s
