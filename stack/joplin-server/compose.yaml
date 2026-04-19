@@ -17,7 +17,7 @@ services:
       POSTGRES_HOST: "postgres-shared"
       MAILER_ENABLED: 1
       MAILER_HOST: "mailpit"
-      MAILER_PORT: "${MP_SMTP_PORT}"
+      MAILER_PORT: "${MAILPIT_SMTP_PORT}"
       MAILER_SECURITY: "none"
       # MAILER_AUTH_USER: ""
       # MAILER_AUTH_PASSWORD: ""
