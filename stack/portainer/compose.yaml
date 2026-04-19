@@ -6,6 +6,10 @@ services:
     ports:
       - "${PORTAINER_PORT:-8358}:9000"
       - "${PORTAINER_HTTPS_PORT:-9443}:9443"
+    deploy:
+      resources:
+        limits:
+          memory: 750M
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../local-volumes/portainer/data:/data

@@ -24,3 +24,7 @@ services:
       MAILER_NOREPLY_EMAIL: "Joplin Server <noreply@joplin-server.local>"
     ports:
       - "${JOPLIN_PORT}:22300"
+    deploy:
+      resources:
+        limits:
+          memory: 350M

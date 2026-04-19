@@ -5,6 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - "${YAADE_PORT:-8364}:9339"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     environment:
       YAADE_ADMIN_USERNAME: "${YAADE_ADMIN_USERNAME}" # default password is password, change this after logging in
     volumes:

@@ -4,6 +4,10 @@ services:
     container_name: memos
     ports:
       - "${MEMOS_PORT:-5230}:5230"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     environment:
       MEMOS_PORT: "${MEMOS_PORT:-5230}"
       MEMOS_DRIVER: postgres

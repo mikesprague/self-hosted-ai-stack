@@ -2,6 +2,10 @@ services:
   dockpeek:
     image: dockpeek/dockpeek:latest
     container_name: dockpeek
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     environment:
       SECRET_KEY: "${DOCKPEEK_SECRET_KEY}"
       USERNAME: "${DOCKPEEK_USERNAME}"

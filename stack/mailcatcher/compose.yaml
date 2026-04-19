@@ -3,6 +3,10 @@ services:
     image: dockage/mailcatcher:latest
     container_name: mailcatcher
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     environment:
       MC_USER: "${MAILCATCHER_USER}"
       MC_PASS: "${MAILCATCHER_PASS}"

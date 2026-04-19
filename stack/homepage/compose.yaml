@@ -4,6 +4,10 @@ services:
     container_name: homepage
     ports:
       - "${HOMEPAGE_PORT:-8349}:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 300M
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
       - ../../local-volumes/homepage/config:/app/config # Make sure your local config directory exists

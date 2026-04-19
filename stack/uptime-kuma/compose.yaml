@@ -8,3 +8,7 @@ services:
       - ../../local-volumes/uptime-kuma/data:/app/data
     ports:
       - "${UPTIME_KUMA_PORT:-8356}:3001"
+    deploy:
+      resources:
+        limits:
+          memory: 500M

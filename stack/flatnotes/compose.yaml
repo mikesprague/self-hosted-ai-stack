@@ -3,6 +3,10 @@ services:
     container_name: flatnotes
     image: dullage/flatnotes:latest
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     ports:
       - "${FLATNOTES_PORT:-8352}:8080"
     volumes:

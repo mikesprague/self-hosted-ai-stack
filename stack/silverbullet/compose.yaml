@@ -4,6 +4,10 @@ services:
     container_name: silverbullet
     ports:
       - "${SILVERBULLET_PORT:-8350}:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     environment:
       SB_USER: "${SILVERBULLET_USER}:${SILVERBULLET_PASSWORD}"
     restart: unless-stopped

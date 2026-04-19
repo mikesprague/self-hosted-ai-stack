@@ -5,6 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - "${VAULTWARDEN_PORT:-8359}:80"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     volumes:
       - ../../local-volumes/vaultwarden/data:/data
     environment:

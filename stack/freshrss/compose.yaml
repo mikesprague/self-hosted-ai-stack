@@ -4,6 +4,10 @@ services:
     container_name: freshrss
     ports:
       - '${FRESHRSS_PUBLISHED_PORT:-8353}:80'
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     depends_on:
       postgres-shared:
         condition: service_healthy

@@ -5,6 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - "${SUPER_PRODUCTIVITY_PORT:-8354}:80"
+    deploy:
+      resources:
+        limits:
+          memory: 750M
     environment:
       SP_SYNC_PROVIDER: WebDAV
       SP_WEBDAV_URL: "http://super-productivity-webdav:80"

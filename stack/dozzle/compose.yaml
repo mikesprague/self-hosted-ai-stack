@@ -5,6 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - "${DOZZLE_PORT:-8357}:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../local-volumes/dozzle/data:/data

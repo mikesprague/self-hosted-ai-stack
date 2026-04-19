@@ -8,6 +8,10 @@ services:
       NEXT_PUBLIC_BASE_URL: "http://${TAILNET_IP_ADDRESS}:${BLINKO_PORT:-1111}"
       NEXTAUTH_SECRET: "${BLINKO_NEXTAUTH_SECRET:?missing}"
       DATABASE_URL: postgresql://${BLINKO_POSTGRES_USER}:${BLINKO_POSTGRES_PASSWORD}@postgres-shared:5432/${BLINKO_POSTGRES_DB}
+    deploy:
+      resources:
+        limits:
+          memory: 750M
     depends_on:
       postgres-shared:
         condition: service_healthy

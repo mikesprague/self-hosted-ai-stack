@@ -34,6 +34,10 @@ services:
       - "${HOPPSCOTCH_PORT:-8363}:3000"
       - "${HOPPSCOTCH_ADMIN_PORT:-3100}:3100"
       - "${HOPPSCOTCH_API_PORT:-3170}:3170"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     depends_on:
       postgres-shared:
         condition: service_healthy

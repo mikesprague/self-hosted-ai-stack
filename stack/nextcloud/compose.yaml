@@ -31,6 +31,10 @@ services:
       - nextcloud-redis
     ports:
       - "${NEXTCLOUD_PORT:-8361}:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
     environment:
       MYSQL_HOST: nextcloud-mariadb
       MYSQL_DATABASE: "${NEXTCLOUD_MYSQL_DATABASE}"
@@ -46,3 +50,4 @@ services:
     volumes:
       - ../../local-volumes/nextcloud/app/html:/var/www/html
       - ../../local-volumes/nextcloud/app/data:/var/www/html/data
+      - /Volumes/SanDisk 2TB/NextcloudExternal:/mnt/nextcloud-external

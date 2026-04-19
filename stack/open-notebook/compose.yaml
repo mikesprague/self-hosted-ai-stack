@@ -20,6 +20,10 @@ services:
     ports:
       - "5055:5055" # REST API
       - "${OPEN_NOTEBOOK_PORT:-8502}:8502" # Web UI
+    deploy:
+      resources:
+        limits:
+          memory: 750M
     depends_on:
       - open-notebook-surrealdb
     environment:

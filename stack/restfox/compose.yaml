@@ -5,3 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "${RESTFOX_PORT:-8365}:4004"
+    deploy:
+      resources:
+        limits:
+          memory: 250M

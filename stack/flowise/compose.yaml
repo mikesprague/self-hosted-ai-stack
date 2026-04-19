@@ -4,6 +4,10 @@ services:
     container_name: flowise
     ports:
       - "${FLOWISE_PORT:-8355}:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     volumes:
       - ../../local-volumes/flowise/data:/root/.flowise
     environment:

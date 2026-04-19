@@ -4,6 +4,10 @@ services:
     container_name: trilium
     ports:
       - "${TRILIUM_PORT:-8351}:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     environment:
       TRILIUM_DATA_DIR: /home/node/trilium-data
       TZ: ${TZ}

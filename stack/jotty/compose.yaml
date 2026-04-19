@@ -4,6 +4,10 @@ services:
     container_name: jotty
     ports:
       - "${JOTTY_PORT:-1122}:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     restart: unless-stopped
     environment:
       - NODE_ENV=production

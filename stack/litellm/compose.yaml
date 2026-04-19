@@ -5,6 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - "${LITELLM_PORT:-4000}:4000"
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
     depends_on:
       postgres-shared:
         condition: service_healthy

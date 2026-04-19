@@ -30,6 +30,10 @@ services:
     container_name: affine-server
     ports:
       - '${AFFINE_PORT:-3010}:3010'
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     depends_on:
       affine-redis:
         condition: service_healthy

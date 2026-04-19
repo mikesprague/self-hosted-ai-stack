@@ -5,6 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - "${LOGSEQ_PORT:-8360}:80"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     environment:
       TZ: "${TZ:-America/New_York}"
       LOGSEQ_DIRECTORY: "/Logseq"
