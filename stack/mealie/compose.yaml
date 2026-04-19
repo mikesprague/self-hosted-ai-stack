@@ -1,0 +1,40 @@
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest
+    container_name: mealie
+    restart: unless-stopped
+    ports:
+      - "${MEALIE_PORT:-8367}:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+    volumes:
+      - ../../local-volumes/mealie/data:/app/data/
+    environment:
+      TZ: "${TZ}"
+      ALLOW_SIGNUP: "false"
+      LOG_LEVEL: "DEBUG"
+      DB_ENGINE: "${MEALIE_DB_ENGINE}"
+      POSTGRES_USER: "${MEALIE_POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${MEALIE_POSTGRES_PASSWORD}"
+      POSTGRES_SERVER: "${MEALIE_POSTGRES_SERVER}"
+      POSTGRES_PORT: "${MEALIE_POSTGRES_PORT}"
+      POSTGRES_DB: "${MEALIE_POSTGRES_DB}"
+      SMTP_HOST: "${MEALIE_SMTP_HOST}"
+      SMTP_PORT: "${MAILCATCHER_SMTP_PORT}"
+      SMTP_FROM_NAME: "${MEALIE_SMTP_FROM_NAME}"
+      SMTP_AUTH_STRATEGY: "${MEALIE_SMTP_AUTH_STRATEGY}"
+      SMTP_FROM_EMAIL: "${MEALIE_SMTP_FROM_EMAIL}"
+      SMTP_USER: "${MAILCATCHER_USER}"
+      PASSWORD: "${MAILCATCHER_PASS}"
+      MAX_WORKERS: "${MEALIE_MAX_WORKERS:-1}"
+      WEB_CONCURRENCY: "${MEALIE_WEB_CONCURRENCY:-1}"
+      BASE_URL: "${MEALIE_BASE_URL:-http://localhost:${MEALIE_PORT:-9091}}"
+      OPENAI_BASE_URL: "${AZURE_FOUNDRY_OPENAI_BASE_URL}"
+      OPENAI_API_KEY: "${AZURE_OPENAI_API_KEY}"
+      OPENAI_MODEL: "gpt-5.4"
+      OPENAI_AUDIO_MODEL: "gpt-4o-mini-transcribe"
+      OPENAI_ENABLE_IMAGE_SERVICES: "true"
+      OPENAI_ENABLE_TRANSCRIPTION_SERVICES: "true"
+      OPENAI_SEND_DATABASE_DATA: "false"

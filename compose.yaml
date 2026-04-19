@@ -30,6 +30,7 @@ include:
       - ./stack/joplin-server/compose.yaml
       - ./stack/jotty/compose.yaml
       - ./stack/logseq/compose.yaml
+      - ./stack/mealie/compose.yaml
       - ./stack/memos/compose.yaml
       - ./stack/silverbullet/compose.yaml
       - ./stack/trilium-notes/compose.yaml
