@@ -1,6 +1,6 @@
 ---
 name: self-hosted-app-expert
-description: 'Expert for a Docker Compose self-hosted app stack. Use when: adding new self-hosted apps, writing new compose files, improving or auditing existing compose configurations, troubleshooting Docker Compose issues, asking about apps in the stack (open-webui, affine, karakeep, memos, freshrss, searxng, hoppscotch, homepage, open-notebook, flatnotes, super-productivity, mailcatcher, vert, atlassian-mcp, postgres-shared, litellm, n8n, flowise, silverbullet, trilium-notes, blinko, docmost, portainer, uptime-kuma, dozzle), suggesting new apps to add, explaining stack architecture, reviewing env var patterns, volume conventions, healthchecks, service dependencies, shared networking, docker best practices, pgvector, postgres, valkey, meilisearch, Ollama integration, MCP server setup.'
+description: 'Expert for this Docker Compose self-hosted app stack. Use when: adding new self-hosted apps, writing new compose files, improving or auditing existing compose configurations, troubleshooting Docker Compose issues, asking about apps in the stack (postgres-shared, dbgate, nextcloud, open-webui, open-notebook, litellm, searxng, affine, blinko, docmost, flatnotes, joplin-server, jotty, karakeep, logseq, mealie, memos, silverbullet, trilium-notes, freshrss, super-productivity, flowise, n8n, vaultwarden, dockpeek, dozzle, portainer, uptime-kuma, mailpit, hoppscotch, restfox, yaade, vert, homepage), suggesting new apps to add, explaining stack architecture, reviewing env var patterns, volume conventions, healthchecks, service dependencies, shared networking, Docker best practices, pgvector, Postgres, Mailpit, DBGate, Valkey, Redis, Meilisearch, Ollama integration, and MCP-related configuration.'
 argument-hint: 'What do you want to do? (add app, improve config, explain stack, troubleshoot, suggest app, etc.)'
 ---
 
@@ -38,8 +38,8 @@ Follow this checklist in order:
 
 1. **Check if it already exists** — search `stack/` directory and the root `compose.yaml` include list (including commented-out entries). If found but commented out, offer to re-activate it.
 2. **Look up the latest image** — search Docker Hub or the project's GitHub/docs via web search or Context7. Use the most stable published tag (avoid `:latest` when a versioned or `:stable`/`:release` tag is available, unless `:latest` is the project's recommended approach).
-3. **Determine dependencies** — does the app need Postgres? If so, it connects to the shared `postgres-shared` instance — no per-app sidecar container. Provision a new database and user in `postgres-shared` (via pgadmin or the maintenance script). Does it also need Redis/Valkey? A search index? A headless browser? Those are still modeled as per-app sidecar services.
-4. **Choose a port** — check the Ports Quick Reference in [stack-inventory.md](./references/stack-inventory.md) and pick the next available sequential number above the current highest app port (currently 8369, so start at 8370 and increment for each port needed). The host-side port mapping **must always** be a namespaced env var (e.g., `${NEWAPP_PORT:-8370}:3000`) — never a hard-coded number.
+3. **Determine dependencies** — does the app need Postgres? If so, it connects to the shared `postgres-shared` instance — no per-app sidecar container. Provision a new database and user in `postgres-shared` using DBGate or SQL. Does it also need Redis/Valkey? A search index? A headless browser? Those are still modeled as per-app sidecar services when needed.
+4. **Choose a port** — check the Ports Quick Reference in [stack-inventory.md](./references/stack-inventory.md) and pick the next available sequential app port (currently start at 8372 unless the app needs a well-known fixed port). The host-side port mapping **must always** be a namespaced env var (e.g., `${NEWAPP_PORT:-8372}:3000`) — never a hard-coded number.
 5. **Create the compose file** — at `stack/<app-name>/compose.yaml`. Follow all conventions in [compose-patterns.md](./references/compose-patterns.md).
 6. **Create local-volumes directories** — document the exact paths needed under `local-volumes/<app-name>/`.
 7. **Add env vars** — append a `### APP NAME ###` block to `.env` following [env-conventions.md](./references/env-conventions.md). For Postgres apps, include `APP_POSTGRES_DB`, `APP_POSTGRES_USER`, and `APP_POSTGRES_PASSWORD` even though there is no sidecar — these credentials define the per-app database on `postgres-shared`.
@@ -92,10 +92,10 @@ Follow this checklist in order:
 ## Key Architecture Facts
 
 - **Root compose file**: `compose.yaml` at workspace root — defines the shared network and includes all app compose files via the `include:` block.
-- **Shared Postgres**: ALL apps that need Postgres connect to the single `postgres-shared` container (`pgvector/pgvector:pg18`). There are no per-app `<app>-postgres` sidecar containers. Each app has its own database name and credentials provisioned within the shared instance. The `postgres-shared` compose file also provides a `pgadmin` UI and a `postgres-maintenance` one-shot service for provisioning.
+- **Shared Postgres**: ALL apps that need Postgres connect to the single `postgres-shared` container (`pgvector/pgvector:pg18`). There are no per-app `<app>-postgres` sidecar containers. Each app has its own database name and credentials provisioned within the shared instance. DBGate is the current browser UI for administering that shared database.
 - **Ollama**: Runs on the host machine (not in Docker). Accessed via `http://host.docker.internal:11434`. Add `extra_hosts: - "host.docker.internal:host-gateway"` to any service that needs it.
 - **LM Studio**: Runs on the host. Accessed via `http://host.docker.internal:1234/v1`.
 - **SearXNG**: Provides web search for open-webui and other apps at `http://searxng:8080`.
-- **Atlassian MCP**: Internal MCP server at `http://atlassian-mcp:9000/mcp` (Jira + Confluence).
+- **Mailpit**: Local SMTP sink available at `mailpit:1025` internally and `http://localhost:8025` externally for web UI access.
 - **Context7 MCP**: External MCP at `https://mcp.context7.com/mcp` (fetches current library docs).
-- **Azure Foundry**: Shared OpenAI-compatible endpoint — env vars `AZURE_FOUNDRY_BASE_URL`, `AZURE_FOUNDRY_OPENAI_BASE_URL`, `AZURE_OPENAI_API_KEY`.
+- **Azure Foundry**: Shared OpenAI-compatible endpoint — env vars `AZURE_FOUNDRY_BASE_URL`, `AZURE_FOUNDRY_OPENAI_BASE_URL`, plus either `AZURE_FOUNDRY_API_KEY` or `AZURE_OPENAI_API_KEY` depending on the app.

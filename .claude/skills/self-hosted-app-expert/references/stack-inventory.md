@@ -1,119 +1,165 @@
+<!-- markdownlint-disable MD060 -->
+
 # Stack App Inventory
 
-Complete inventory of all apps in the self-hosted stack. Apps marked **[inactive]** are defined but commented out in the root `compose.yaml` include block — their compose files exist in `stack/` and can be re-activated.
+Complete inventory of all apps in the self-hosted stack. Apps marked [inactive] are defined but commented out in the root `compose.yaml` include block or otherwise not currently part of the active stack. At the moment, only `home-assistant` is present but commented out.
 
-## AI / LLM
+## Infrastructure / Data
+
+| App | Container | Port | Status | Notes |
+|-----|-----------|------|--------|-------|
+| postgres-shared | `postgres-shared` | 5432 | active | Single shared `pgvector/pgvector:pg18` Postgres instance for all Postgres-backed apps |
+| dbgate | `dbgate` | 8370 | active | Browser-based database manager preconfigured for `postgres-shared` |
+
+## Personal Cloud
+
+| App | Container | Port | Status | Notes |
+|-----|-----------|------|--------|-------|
+| nextcloud | `nextcloud` | 8361 | active | Personal cloud / sync service backed by MariaDB + Redis |
+
+## AI / Research
 
 | App | Container | Port | Postgres | Status | Notes |
 |-----|-----------|------|----------|--------|-------|
-| open-webui | `open-webui` | 3000 | shared | **active** | Main AI chat UI; integrates Ollama, Azure Foundry, SearXNG, multiple MCP servers |
-| open-notebook | `open-notebook` | — | No (SurrealDB) | **active** | AI-powered notebook with SurrealDB |
-| litellm | `litellm` | 4000 | shared | [inactive] | LLM proxy/gateway; aggregates multiple providers |
+| open-webui | `open-webui` | 3000 | shared | active | Main chat UI; integrates Ollama, Azure, SearXNG, and MCP servers |
+| open-notebook | `open-notebook` | 8502 (UI), 5055 (API) | No (SurrealDB) | active | AI notebook with SurrealDB sidecar |
+| litellm | `litellm` | 4000 | shared | active | OpenAI-compatible LLM proxy/gateway |
+| searxng | `searxng` | 8348 | No | active | Privacy-preserving meta search engine used by AI workflows |
 
-## Search
-
-| App | Container | Port | Deps | Status | Notes |
-|-----|-----------|------|------|--------|-------|
-| searxng | `searxng` | 8348 | Valkey | **active** | Privacy-preserving meta search engine; used by open-webui |
-
-## Personal Knowledge Management (PKM)
+## Knowledge Management
 
 | App | Container | Port | Postgres | Status | Notes |
 |-----|-----------|------|----------|--------|-------|
-| affine | `affine` | 8369 | shared | **active** | All-in-one workspace (docs, whiteboard, tasks) |
-| flatnotes | `flatnotes` | — | No | **active** | Simple flat-file markdown notes |
-| karakeep | `karakeep-web` | 7788 | No | **active** | Bookmark/read-later manager; uses Meilisearch + headless Chrome + AI inference |
-| memos | `memos` | 5230 | shared | **active** | Lightweight micro-journaling / notes |
-| blinko | `blinko` | — | shared | [inactive] | Note-taking with AI |
-| docmost | `docmost` | — | shared | [inactive] | Collaborative wiki/docs (Notion alternative) |
-| jotty | `jotty` | — | No | [inactive] | Minimal notes app |
-| logseq | `logseq` | — | No | [inactive] | Graph-based outliner / PKM |
-| silverbullet | `silverbullet` | — | No | [inactive] | Markdown-based personal wiki with plugins |
-| trilium-notes | `trilium` | — | No | [inactive] | Hierarchical notes with scripting |
+| affine | `affine-server` | 3010 | shared | active | Workspace with docs, whiteboards, and databases; uses Redis sidecar + migration job |
+| blinko | `blinko-web` | 1111 | shared | active | AI note-taking app with Tailnet-based callback URLs |
+| docmost | `docmost` | 7889 | shared | active | Collaborative wiki/docs app; also uses Redis sidecar |
+| flatnotes | `flatnotes` | 8352 | No | active | Flat-file markdown notes |
+| joplin-server | `joplin-server` | 22300 | shared | active | Joplin sync server; uses Mailpit for outbound email |
+| jotty | `jotty` | 1122 | No | active | Minimal notes/checklists app |
+| karakeep | `karakeep-web` | 7788 | No | active | Bookmark/read-later manager; uses Meilisearch + Chrome sidecars |
+| logseq | `logseq` | 8360 | No | active | Local-first outliner / graph workspace |
+| memos | `memos` | 5230 | shared | active | Lightweight notes and journaling |
+| silverbullet | `silverbullet` | 8350 | No | active | Markdown personal wiki |
+| trilium-notes | `trilium` | 8351 | No | active | Hierarchical notes app |
+
+## Recipes
+
+| App | Container | Port | Postgres | Status | Notes |
+|-----|-----------|------|----------|--------|-------|
+| mealie | `mealie` | 8367 | shared | active | Recipe manager; uses Mailpit SMTP and Azure OpenAI-compatible features |
 
 ## RSS / Feed Reading
 
 | App | Container | Port | Postgres | Status | Notes |
 |-----|-----------|------|----------|--------|-------|
-| freshrss | `freshrss` | 8353 | shared | **active** | Self-hosted RSS aggregator |
+| freshrss | `freshrss` | 8353 | shared | active | Self-hosted RSS aggregator |
 
 ## Task Management / Productivity
 
 | App | Container | Port | Deps | Status | Notes |
 |-----|-----------|------|------|--------|-------|
-| super-productivity | `super-productivity` | — | No (WebDAV) | **active** | Task/time tracking; uses local WebDAV for sync |
+| super-productivity | `super-productivity` | 8354 | WebDAV sidecar | active | Task/time tracking app with bundled WebDAV sync |
 
 ## Automation / Workflow
 
 | App | Container | Port | Postgres | Status | Notes |
 |-----|-----------|------|----------|--------|-------|
-| n8n | `n8n` | 5678 | shared | [inactive] | Visual workflow automation; also has Qdrant vector DB |
-| flowise | `flowise` | — | shared | [inactive] | LLM workflow builder (LangChain UI) |
+| flowise | `flowise` | 8355 | shared | active | LLM workflow builder |
+| n8n | `n8n` | 5678 | shared | active | Workflow automation; depends on Tailnet domain for webhook/public URL config |
 
-## API Development / Testing
+## Password Management
 
-| App | Container | Port | Postgres | Status | Notes |
-|-----|-----------|------|----------|--------|-------|
-| hoppscotch | `hoppscotch` | 8363 (UI), 3100 (admin), 3170 (API) | shared | **active** | Full-featured REST/GraphQL/WS client with team features |
-| yaade | `yaade` | 8364 | No | **active** | Simple collaborative API client |
-| restfox | `restfox` | 8365 | No | **active** | Lightweight offline-first REST client |
-
-## Infrastructure / Shared Services
-
-| App | Container | Port | Notes |
-|-----|-----------|------|-------|
-| postgres-shared | `postgres-shared` | — | **The single Postgres instance for all apps** (`pgvector/pgvector:pg18`). Each app has its own database and credentials within this instance. Includes `pgadmin` UI (port 5050) and a `postgres-maintenance` one-shot provisioning service. |
-| mailcatcher | `mailcatcher` | 1025 (SMTP), 8366 (UI) | Dev SMTP catcher; captures all outbound email |
-| atlassian-mcp | `atlassian-mcp` | 9000 | MCP server for Jira + Confluence integration |
+| App | Container | Port | Status | Notes |
+|-----|-----------|------|--------|-------|
+| vaultwarden | `vaultwarden` | 8359 | active | Requires HTTPS domain and Argon2 admin token |
 
 ## Monitoring / Management
 
 | App | Container | Port | Status | Notes |
 |-----|-----------|------|--------|-------|
-| dozzle | `dozzle` | — | [inactive] | Real-time Docker log viewer |
-| portainer | `portainer` | 8358 (HTTP), 9443 (HTTPS) | [inactive] | Docker management UI |
-| uptime-kuma | `uptime-kuma` | — | [inactive] | Service uptime monitoring |
+| dockpeek | `dockpeek` | 8368 | active | Lightweight Docker dashboard; mounts Docker socket |
+| dozzle | `dozzle` | 8357 | active | Docker log viewer; mounts Docker socket |
+| portainer | `portainer` | 8358 (HTTP), 9443 (HTTPS) | active | Docker management UI; mounts Docker socket |
+| uptime-kuma | `uptime-kuma` | 8356 | active | Service uptime monitoring; mounts Docker socket |
 
-## Dashboard
-
-| App | Container | Port | Notes |
-|-----|-----------|------|-------|
-| homepage | `homepage` | 8349 | Configurable start page / dashboard; reads Docker socket |
-
-## File Tools
+## Mail / Delivery
 
 | App | Container | Port | Status | Notes |
 |-----|-----------|------|--------|-------|
-| vert | `vert` | 8368 | **active** | File format converter (runs offline — external requests disabled) |
+| mailpit | `mailpit` | 8025 (UI), 1025 (SMTP) | active | Local SMTP sink used by Joplin Server, Hoppscotch, and Mealie |
+
+## API Development / Testing
+
+| App | Container | Port | Postgres | Status | Notes |
+|-----|-----------|------|----------|--------|-------|
+| hoppscotch | `hoppscotch` | 8363 (app), 3100 (admin), 3170 (API) | shared | active | Multi-service API development suite |
+| restfox | `restfox` | 8365 | No | active | Lightweight offline-first REST client |
+| yaade | `yaade` | 8364 | No | active | Self-hosted API collection manager |
+
+## Utilities
+
+| App | Container | Port | Status | Notes |
+|-----|-----------|------|--------|-------|
+| vert | `vert` | 8369 | active | File conversion web app |
+
+## Dashboard
+
+| App | Container | Port | Status | Notes |
+|-----|-----------|------|--------|-------|
+| homepage | `homepage` | 8349 | active | Dashboard / start page; mounts Docker socket |
+
+## Optional / Inactive
+
+| App | Container | Port | Status | Notes |
+|-----|-----------|------|--------|-------|
+| home-assistant | `home-assistant` | 8362 | inactive | Compose file exists but include is commented out in root `compose.yaml` |
 
 ## Ports Quick Reference
 
-> **Port assignment rule**: Host-side ports must always be a namespaced env var (e.g., `${APP_PORT:-8370}`) — never hard-coded. Assign the next sequential number above the current highest to avoid conflicts.
-> **Next available port: 8370**
+> Port assignments must always use namespaced env vars in compose files.
+> The current sequential app-port range in active use runs through 8371, so new ports should typically start at 8372 unless an app needs a well-known upstream port.
 
 | Port | App |
 |------|-----|
-| 1025 | mailcatcher SMTP |
+| 1025 | mailpit SMTP |
+| 1111 | blinko |
+| 1122 | jotty |
 | 3000 | open-webui |
+| 3010 | affine |
 | 3100 | hoppscotch admin |
-| 3170 | hoppscotch API backend |
-| 4000 | litellm [inactive] |
-| 5050 | pgadmin |
+| 3170 | hoppscotch API |
+| 4000 | litellm |
+| 5055 | open-notebook API |
 | 5230 | memos |
-| 5678 | n8n [inactive] |
+| 5678 | n8n |
 | 7788 | karakeep |
+| 7889 | docmost |
+| 8025 | mailpit UI |
 | 8348 | searxng |
 | 8349 | homepage |
+| 8350 | silverbullet |
+| 8351 | trilium-notes |
+| 8352 | flatnotes |
 | 8353 | freshrss |
-| 8358 | portainer [inactive] |
-| 8363 | hoppscotch web UI |
+| 8354 | super-productivity |
+| 8355 | flowise |
+| 8356 | uptime-kuma |
+| 8357 | dozzle |
+| 8358 | portainer HTTP |
+| 8359 | vaultwarden |
+| 8360 | logseq |
+| 8361 | nextcloud |
+| 8362 | home-assistant [inactive] |
+| 8363 | hoppscotch app |
 | 8364 | yaade |
 | 8365 | restfox |
-| 8366 | mailcatcher web UI |
-| 8368 | vert |
-| 8369 | affine |
-| 9000 | atlassian-mcp |
-| 9443 | portainer HTTPS [inactive] |
+| 8367 | mealie |
+| 8368 | dockpeek |
+| 8369 | vert |
+| 8370 | dbgate |
+| 8371 | mailpit default UI port in compose |
+| 9443 | portainer HTTPS |
+| 22300 | joplin-server |
 
 ## External Integrations (Shared)
 
@@ -121,8 +167,9 @@ Complete inventory of all apps in the self-hosted stack. Apps marked **[inactive
 |---------|-------------|---------|
 | Ollama (host) | `http://host.docker.internal:11434` | `OLLAMA_BASE_URL` |
 | LM Studio (host) | `http://host.docker.internal:1234/v1` | `LM_STUDIO_OPENAI_API_URL` |
-| Azure Foundry OpenAI | `AZURE_FOUNDRY_OPENAI_BASE_URL` | `AZURE_OPENAI_API_KEY` |
+| Azure Foundry base URL | `AZURE_FOUNDRY_BASE_URL` | `AZURE_FOUNDRY_API_KEY` or `AZURE_OPENAI_API_KEY` depending on app |
+| Azure Foundry OpenAI-compatible URL | `AZURE_FOUNDRY_OPENAI_BASE_URL` | `AZURE_FOUNDRY_API_KEY` or `AZURE_OPENAI_API_KEY` depending on app |
 | SearXNG (internal) | `http://searxng:8080` | — |
-| Atlassian MCP (internal) | `http://atlassian-mcp:9000/mcp` | — |
 | Context7 MCP (external) | `https://mcp.context7.com/mcp` | `CONTEXT7_API_KEY` |
 | Mermaid MCP (external) | `https://mcp.mermaid.ai/mcp` | — |
+| Mailpit SMTP (internal) | `mailpit:1025` | `MAILPIT_SMTP_PORT` |
