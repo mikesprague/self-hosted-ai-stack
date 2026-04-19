@@ -46,8 +46,9 @@ include:
       - ./stack/dozzle/compose.yaml
       - ./stack/portainer/compose.yaml
       - ./stack/uptime-kuma/compose.yaml
-      # SMTP Server
-      - ./stack/mailcatcher/compose.yaml
+      # SMTP Server/Mail Catcher
+      # - ./stack/mailcatcher/compose.yaml
+      - ./stack/mailpit/compose.yaml
       # API Development
       - ./stack/hoppscotch/compose.yaml
       - ./stack/restfox/compose.yaml
