@@ -1,0 +1,13 @@
+services:
+  degoog:
+    image: ghcr.io/fccview/degoog:latest
+    container_name: degoog
+    volumes:
+      - ../../local-volumes/degoog/data:/app/data
+    ports:
+      - "${DEGOOG_PORT:-4444}:4444"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 250M

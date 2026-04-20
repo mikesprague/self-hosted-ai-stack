@@ -17,6 +17,7 @@ include:
       - ./stack/open-notebook/compose.yaml
       - ./stack/litellm/compose.yaml
       # Search Engine
+      - ./stack/degoog/compose.yaml
       - ./stack/hister/compose.yaml
       - ./stack/searxng/compose.yaml
       # Password Manager
@@ -60,3 +61,6 @@ include:
     # used for interpolation in each app's compose file
     env_file:
       - .env
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
