@@ -1,0 +1,132 @@
+services:
+  paperless-broker:
+    image: redis:8-alpine
+    container_name: paperless-broker
+    ports:
+      - "${PAPERLESS_REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    volumes:
+      - ../../local-volumes/paperless-ngx/redis-data:/data
+
+  paperless-ngx:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless-ngx
+    restart: unless-stopped
+    depends_on:
+      postgres-shared:
+        condition: service_healthy
+      paperless-broker:
+        condition: service_healthy
+      paperless-gotenberg:
+        condition: service_started
+      paperless-tika:
+        condition: service_started
+    ports:
+      - "${PAPERLESS_PORT:-8000}:8000"
+    volumes:
+      - ../../local-volumes/paperless-ngx/data:/usr/src/paperless/data
+      - ../../local-volumes/paperless-ngx/media:/usr/src/paperless/media
+      - ../../local-volumes/paperless-ngx/export:/usr/src/paperless/export
+      - ../../local-volumes/paperless-ngx/consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_TIME_ZONE: "${TZ}"
+      PAPERLESS_REDIS: redis://paperless-broker:6379
+      PAPERLESS_DBENGINE: "postgresql"
+      PAPERLESS_DBHOST: "${POSTGRES_SHARED_HOST}"
+      PAPERLESS_DBPORT: "${POSTGRES_SHARED_PORT}"
+      PAPERLESS_DBUSER: "${PAPERLESS_DBUSER}"
+      PAPERLESS_DBNAME: "${PAPERLESS_DBNAME}"
+      PAPERLESS_DBPASS: "${PAPERLESS_DBPASS}"
+      PAPERLESS_TIKA_ENABLED: "true"
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+
+  paperless-gotenberg:
+    image: gotenberg/gotenberg:latest
+    container_name: paperless-gotenberg
+    restart: unless-stopped
+    ports:
+      - "${PAPERLESS_GOTENBERG_PORT:-3000}:3000"
+    # The gotenberg chromium route is used to convert .eml files. We do not
+    # want to allow external content like tracking pixels or even javascript.
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+
+  paperless-tika:
+    image: apache/tika:latest
+    container_name: paperless-tika
+    ports:
+      - "${PAPERLESS_TIKA_PORT:-9998}:9998"
+    restart: unless-stopped
+
+  paperless-gpt:
+    # Use one of these image sources:
+    image: icereed/paperless-gpt:latest # Docker Hub
+    # image: ghcr.io/icereed/paperless-gpt:latest  # GitHub Container Registry
+    container_name: paperless-gpt
+    environment:
+      PAPERLESS_BASE_URL: "http://paperless-ngx:8000"
+      PAPERLESS_API_TOKEN: "${PAPERLESS_NGX_API_TOKEN}"
+      # PAPERLESS_PUBLIC_URL: "http://paperless.mydomain.com" # Optional
+      MANUAL_TAG: "paperless-gpt" # Optional, default: paperless-gpt
+      AUTO_TAG: "paperless-gpt-auto" # Optional, default: paperless-gpt-auto
+      # LLM Configuration - Choose one:
+
+      # Option 3: Azure OpenAI
+      # LLM_PROVIDER: "openai"
+      # LLM_MODEL: "gpt-5.4-mini"
+      # OPENAI_API_KEY: "${AZURE_OPENAI_API_KEY}"
+      # OPENAI_API_TYPE: "azure"
+      # OPENAI_BASE_URL: "${AZURE_FOUNDRY_BASE_URL}"
+
+      # Option 4: Ollama (Local)
+      LLM_PROVIDER: "ollama"
+      LLM_MODEL: "gpt-oss:latest"
+      OLLAMA_HOST: "${OLLAMA_BASE_URL}"
+      OLLAMA_CONTEXT_LENGTH: "8192" # Sets Ollama NumCtx (context window)
+      # TOKEN_LIMIT: 1000 # Recommended for smaller models
+
+      # Optional LLM Settings
+      # LLM_LANGUAGE: "English" # Optional, default: English
+
+      # OCR Configuration - Choose one:
+      # Option 1: LLM-based OCR
+      OCR_PROVIDER: "llm" # Default OCR provider
+      VISION_LLM_PROVIDER: "ollama" # openai, ollama, mistral, or anthropic
+      VISION_LLM_MODEL: "minicpm-v" # minicpm-v (ollama) or gpt-4o (openai) or claude-sonnet-4-5 (anthropic/claude)
+      # OLLAMA_HOST: "http://host.docker.internal:11434" # If using Ollama
+
+      # OCR Processing Mode
+      OCR_PROCESS_MODE: "image" # Optional, default: image, other options: pdf, whole_pdf
+      PDF_SKIP_EXISTING_OCR: "false" # Optional, skip OCR for PDFs with existing OCR
+
+      # Enhanced OCR Features
+      CREATE_LOCAL_HOCR: "false" # Optional, save hOCR files locally
+      LOCAL_HOCR_PATH: "/app/hocr" # Optional, path for hOCR files
+      CREATE_LOCAL_PDF: "false" # Optional, save enhanced PDFs locally
+      LOCAL_PDF_PATH: "/app/pdf" # Optional, path for PDF files
+      PDF_UPLOAD: "false" # Optional, upload enhanced PDFs to paperless-ngx
+      PDF_REPLACE: "false" # Optional and DANGEROUS, delete original after upload
+      PDF_COPY_METADATA: "true" # Optional, copy metadata from original document
+      PDF_OCR_TAGGING: "true" # Optional, add tag to processed documents
+      PDF_OCR_COMPLETE_TAG: "paperless-gpt-ocr-complete" # Optional, tag name
+
+      AUTO_OCR_TAG: "paperless-gpt-ocr-auto" # Optional, default: paperless-gpt-ocr-auto
+      OCR_LIMIT_PAGES: "5" # Optional, default: 5. Set to 0 for no limit.
+      LOG_LEVEL: "info" # Optional: debug, warn, error
+    volumes:
+      - ../../local-volumes/paperless-gpt/data/prompts:/app/prompts # Mount the prompts directory
+      # - ../../local-volumes/paperless-gpt/data/hocr:/app/hocr # Only if CREATE_LOCAL_HOCR is true
+      # - ../../local-volumes/paperless-gpt/data/pdf:/app/pdf # Only if CREATE_LOCAL_PDF is true
+    ports:
+      - "${PAPERLESS_GPT_PORT:-8080}:8080"
+    depends_on:
+      paperless-ngx:
+        condition: service_started

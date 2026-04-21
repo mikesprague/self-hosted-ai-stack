@@ -32,6 +32,7 @@ include:
       - ./stack/logseq/compose.yaml
       - ./stack/mealie/compose.yaml
       - ./stack/memos/compose.yaml
+      - ./stack/paperless-ngx/compose.yaml
       - ./stack/silverbullet/compose.yaml
       - ./stack/trilium-notes/compose.yaml
       # RSS Reader
