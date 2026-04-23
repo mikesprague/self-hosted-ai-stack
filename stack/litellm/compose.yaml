@@ -23,6 +23,9 @@ services:
       AZURE_API_BASE: "${AZURE_FOUNDRY_BASE_URL}"
       AZURE_FOUNDRY_BASE_URL: "${AZURE_FOUNDRY_BASE_URL}"
       AZURE_API_VERSION: "${AZURE_OPENAI_API_VERSION}"
+      CONTEXT7_API_KEY: "${CONTEXT7_API_KEY}"
+      TDX_MCP_SERVER_URL: "${TDX_MCP_SERVER_URL}"
+      SEARXNG_API_BASE: "${SEARXNG_BASE_URL}"
     volumes:
       - ../../local-volumes/litellm/config/config.yaml:/app/config/config.yaml:ro
     command:

@@ -4,6 +4,12 @@ services:
     container_name: open-notebook-surrealdb
     command: start --log info --user root --pass root rocksdb:/mydata/mydatabase.db
     user: root # Required for bind mounts on Linux
+    healthcheck:
+      test: [ "CMD", "/surreal", "isready", "--conn", "http://localhost:8000" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     ports:
       - "8000:8000"
     environment:
@@ -25,7 +31,10 @@ services:
         limits:
           memory: 750M
     depends_on:
-      - open-notebook-surrealdb
+      open-notebook-surrealdb:
+        condition: service_healthy
+      litellm:
+        condition: service_healthy
     environment:
       OPEN_NOTEBOOK_ENCRYPTION_KEY: "${OPEN_NOTEBOOK_ENCRYPTION_KEY}"
       # Database connection (default values - no need to change)
@@ -34,8 +43,12 @@ services:
       SURREAL_PASSWORD: root
       SURREAL_NAMESPACE: open_notebook
       SURREAL_DATABASE: open_notebook
-      # Misc Configuration
-      AZURE_OPENAI_API_VERSION: "${AZURE_OPENAI_API_VERSION:-2025-04-01-preview}"
+      # Ollama
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-}"
+      # LiteLLM configuration
+      OPENAI_COMPATIBLE_BASE_URL: "${LITELLM_API_URL}"
+      OPENAI_COMPATIBLE_API_KEY: "${LITELLM_API_KEY}"
+      # Content extraction
       JINA_API_KEY: "${JINA_API_KEY:-}"
     restart: unless-stopped
     volumes:
