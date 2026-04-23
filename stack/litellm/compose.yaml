@@ -1,6 +1,6 @@
 services:
   litellm:
-    image: ghcr.io/berriai/litellm:main-stable
+    image: litellm/litellm:v1.83.7-stable
     container_name: litellm
     restart: unless-stopped
     ports:
@@ -21,11 +21,18 @@ services:
       OLLAMA_API_KEY: "${OLLAMA_API_KEY}"
       AZURE_API_KEY: "${AZURE_OPENAI_API_KEY}"
       AZURE_API_BASE: "${AZURE_FOUNDRY_BASE_URL}"
+      AZURE_FOUNDRY_BASE_URL: "${AZURE_FOUNDRY_BASE_URL}"
       AZURE_API_VERSION: "${AZURE_OPENAI_API_VERSION}"
     volumes:
       - ../../local-volumes/litellm/config/config.yaml:/app/config/config.yaml:ro
     command:
       - "--config=/app/config/config.yaml"
       - "--port=4000"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
