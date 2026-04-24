@@ -1,0 +1,22 @@
+services:
+  anchor:
+    image: ghcr.io/zhfahim/anchor:latest
+    container_name: anchor
+    restart: unless-stopped
+    depends_on:
+      postgres-shared:
+        condition: service_healthy
+    ports:
+      - "${ANCHOR_PORT:-3000}:3000"
+    volumes:
+      - ../../local-volumes/anchor/data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 5000M
+    environment:
+      PG_HOST: "${POSTGRES_SHARED_HOST:-}"
+      PG_PORT: "${POSTGRES_SHARED_PORT:-5432}"
+      PG_USER: "${ANCHOR_POSTGRES_USER:-anchor}"
+      PG_PASSWORD: "${ANCHOR_POSTGRES_PASSWORD:-password}"
+      PG_DATABASE: "${ANCHOR_POSTGRES_DB:-anchor}"
