@@ -12,6 +12,16 @@ services:
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
       - --hide-scrollbars
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:9222/json/version" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 5000M
 
   karakeep-meilisearch:
     image: getmeili/meilisearch:latest
@@ -19,6 +29,16 @@ services:
     restart: unless-stopped
     ports:
       - 7700:7700
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:7700/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     environment:
       MEILI_NO_ANALYTICS: "true"
       MEILI_MASTER_KEY: ${KARAKEEP_MEILI_MASTER_KEY:?missing}
@@ -35,9 +55,15 @@ services:
     restart: unless-stopped
     depends_on:
       karakeep-chrome:
-        condition: service_started
+        condition: service_healthy
       karakeep-meilisearch:
-        condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:3000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     ports:
       - "${KARAKEEP_PORT:-7788}:3000"
     environment:
