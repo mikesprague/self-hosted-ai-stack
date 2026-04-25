@@ -206,11 +206,11 @@ general_settings:
   database_url: os.environ/DATABASE_URL
 
 mcp_servers:
-  # atlassian:
-  #   url: "http://atlassian:9000/mcp"
-  #   description: "Readonly Jira and Confluence tools for accessing data in our instances"
-  #   spec_path: ""
-  #   auth_type: none
+  atlassian:
+    url: "http://atlassian-mcp:9000/mcp"
+    description: "Readonly Jira and Confluence tools for accessing data in our instances"
+    spec_path: ""
+    auth_type: none
 
   mermaid:
     url: "https://mcp.mermaid.ai/mcp"
@@ -225,8 +225,9 @@ mcp_servers:
     spec_path: ""
     auth_type: bearer_token
     auth_value: os.environ/CONTEXT7_API_KEY
-  # tdx:
-  #   url: os.environ/TDX_MCP_SERVER_URL
-  #   description: "Full-text search tools with access to TDX tickets and KB articles"
-  #   spec_path: ""
-  #   auth_type: none
+
+  tdx:
+    url: os.environ/TDX_MCP_SERVER_URL
+    description: "Full-text search tools with access to TDX tickets and KB articles"
+    spec_path: ""
+    auth_type: none
