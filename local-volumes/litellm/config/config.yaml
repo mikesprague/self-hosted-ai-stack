@@ -24,7 +24,72 @@ model_list:
   #     model: ollama/nomic-embed-text-v2-moe:latest
   #     api_base: os.environ/OLLAMA_API_BASE
 
+  - model_name: gpt-4.1
+    model_info:
+      description: GPT 4.1 (OpenAI)
+    litellm_params:
+      model: azure/gpt-4.1
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-4.1-mini
+    model_info:
+      description: GPT 4.1 Mini (OpenAI)
+    litellm_params:
+      model: azure/gpt-4.1-mini
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-5.2
+    model_info:
+      description: GPT 5.2 (OpenAI)
+    litellm_params:
+      model: azure/gpt-5.2
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-5.2-chat
+    model_info:
+      description: GPT 5.2 Chat (OpenAI)
+    litellm_params:
+      model: azure/gpt-5.2-chat
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-5.2-codex
+    model_info:
+      description: GPT 5.2 Codex (OpenAI)
+    litellm_params:
+      model: azure/gpt-5.2-codex
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-5.3-chat
+    model_info:
+      description: GPT 5.3 Chat (OpenAI)
+    litellm_params:
+      model: azure/gpt-5.3-chat
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-5.3-codex
+    model_info:
+      description: GPT 5.3 Codex (OpenAI)
+    litellm_params:
+      model: azure/gpt-5.3-codex
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
   - model_name: gpt-5.4
+    model_info:
+      description: GPT 5.4 (OpenAI)
     litellm_params:
       model: azure/gpt-5.4
       api_base: os.environ/AZURE_API_BASE
@@ -32,6 +97,8 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-5.4-mini
+    model_info:
+      description: GPT 5.4 Mini (OpenAI)
     litellm_params:
       model: azure/gpt-5.4-mini
       api_base: os.environ/AZURE_API_BASE
@@ -39,6 +106,8 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-5.4-nano
+    model_info:
+      description: GPT 5.4 Nano (OpenAI)
     litellm_params:
       model: azure/gpt-5.4-nano
       api_base: os.environ/AZURE_API_BASE
@@ -46,6 +115,8 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-5.4-pro
+    model_info:
+      description: GPT 5.4 Pro (OpenAI)
     litellm_params:
       model: azure/gpt-5.4-pro
       api_base: os.environ/AZURE_API_BASE
@@ -53,6 +124,8 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-5.5
+    model_info:
+      description: GPT 5.5 (OpenAI)
     litellm_params:
       model: azure/gpt-5.5
       api_base: os.environ/AZURE_API_BASE
@@ -60,6 +133,8 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-4o-mini-transcribe
+    model_info:
+      description: GPT 4o Mini Transcribe (OpenAI)
     litellm_params:
       model: azure/gpt-4o-mini-transcribe
       api_base: os.environ/AZURE_API_BASE
@@ -67,20 +142,44 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-4o-mini-tts
+    model_info:
+      description: GPT 4o Mini TTS (OpenAI)
     litellm_params:
-      model: azure/gpt-4o-mini-transcribe
+      model: azure/gpt-4o-mini-tts
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-audio-1-5
+    model_info:
+      description: GPT Audio 1.5 (OpenAI)
+    litellm_params:
+      model: azure/gpt-audio-1.5-1
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
+  - model_name: gpt-oss-20b
+    model_info:
+      description: GPT OSS 20B (OpenAI)
+    litellm_params:
+      model: azure/gpt-oss-20b
       api_base: os.environ/AZURE_API_BASE
       api_key: os.environ/AZURE_API_KEY
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-image-1-mini
+    model_info:
+      description: GPT Image 1 Mini (OpenAI)
     litellm_params:
       model: azure/gpt-image-1-mini
       api_base: os.environ/AZURE_API_BASE
       api_key: os.environ/AZURE_API_KEY
       api_version: os.environ/AZURE_API_VERSION
 
-  - model_name: gpt-image-1.5
+  - model_name: gpt-image-1-5
+    model_info:
+      description: GPT Image 1.5 (OpenAI)
     litellm_params:
       model: azure/gpt-image-1.5
       api_base: os.environ/AZURE_API_BASE
@@ -88,13 +187,26 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: gpt-image-2
+    model_info:
+      description: GPT Image 2 (OpenAI)
     litellm_params:
       model: azure/gpt-image-2-1
       api_base: os.environ/AZURE_API_BASE
       api_key: os.environ/AZURE_API_KEY
       api_version: os.environ/AZURE_API_VERSION
 
+  - model_name: sora-2
+    model_info:
+      description: Sora 2 (OpenAI)
+    litellm_params:
+      model: azure/sora2
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+      api_version: os.environ/AZURE_API_VERSION
+
   - model_name: text-embedding-3-small
+    model_info:
+      description: Text Embedding 3 Small (OpenAI)
     litellm_params:
       model: azure/text-embedding-3-small
       api_base: os.environ/AZURE_API_BASE
@@ -102,99 +214,203 @@ model_list:
       api_version: os.environ/AZURE_API_VERSION
 
   - model_name: text-embedding-3-large
+    model_info:
+      description: Text Embedding 3 Large (OpenAI)
     litellm_params:
       model: azure/text-embedding-3-large
       api_base: os.environ/AZURE_API_BASE
       api_key: os.environ/AZURE_API_KEY
       api_version: os.environ/AZURE_API_VERSION
 
-  - model_name: cohere-rerank-v4.0-fast
+  - model_name: embed-v-4-0
+    model_info:
+      description: Embed v4.0 (Cohere)
+    litellm_params:
+      model: azure_ai/embed-v-4-0
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: cohere-rerank-v4-0-fast
+    model_info:
+      description: Rerank v4.0 Fast (Cohere)
     litellm_params:
       model: azure_ai/cohere-rerank-v4.0-fast
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
-  - model_name: cohere-rerank-v4.0-pro
+  - model_name: cohere-rerank-v4-0-pro
+    model_info:
+      description: Rerank v4.0 Pro (Cohere)
     litellm_params:
       model: azure_ai/cohere-rerank-v4.0-pro
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: claude-opus-4-7
+    model_info:
+      description: Claude Opus 4.7 (Anthropic)
     litellm_params:
       model: azure_ai/claude-opus-4-7
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: claude-opus-4-6
+    model_info:
+      description: Claude Opus 4.6 (Anthropic)
     litellm_params:
       model: azure_ai/claude-opus-4-6
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: claude-sonnet-4-6
+    model_info:
+      description: Claude Sonnet 4.6 (Anthropic)
     litellm_params:
       model: azure_ai/claude-sonnet-4-6
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
+  - model_name: claude-opus-4-5
+    model_info:
+      description: Claude Opus 4.5 (Anthropic)
+    litellm_params:
+      model: azure_ai/claude-opus-4-5
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: claude-sonnet-4-5
+    model_info:
+      description: Claude Sonnet 4.5 (Anthropic)
+    litellm_params:
+      model: azure_ai/claude-sonnet-4-5
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: claude-haiku-4-5
+    model_info:
+      description: Claude Haiku 4.5 (Anthropic)
+    litellm_params:
+      model: azure_ai/claude-haiku-4-5
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: grok-code-fast-1
+    model_info:
+      description: Grok Code Fast 1 (xAI)
+    litellm_params:
+      model: azure_ai/grok-code-fast-1
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
   - model_name: grok-4
+    model_info:
+      description: Grok 4 (xAI)
     litellm_params:
       model: azure_ai/grok-4
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: grok-4-fast-non-reasoning
+    model_info:
+      description: Grok 4 Fast Non-Reasoning (xAI)
     litellm_params:
       model: azure_ai/grok-4-fast-non-reasoning
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: grok-4-fast-reasoning
+    model_info:
+      description: Grok 4 Fast Reasoning (xAI)
     litellm_params:
       model: azure_ai/grok-4-fast-reasoning
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: grok-4-1-fast-non-reasoning
+    model_info:
+      description: Grok 4.1 Fast Non-Reasoning (xAI)
     litellm_params:
       model: azure_ai/grok-4-1-fast-non-reasoning
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: grok-4-1-fast-reasoning
+    model_info:
+      description: Grok 4.1 Fast Reasoning (xAI)
     litellm_params:
       model: azure_ai/grok-4-1-fast-reasoning
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
-  - model_name: grok-4-20-fast-non-reasoning
+  - model_name: grok-4-2-fast-non-reasoning
+    model_info:
+      description: Grok 4.2 Fast Non-Reasoning (xAI)
     litellm_params:
       model: azure_ai/grok-4-20-non-reasoning-1
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
-  - model_name: grok-4-20-fast-reasoning
+  - model_name: grok-4-2-fast-reasoning
+    model_info:
+      description: Grok 4.2 Fast Reasoning (xAI)
     litellm_params:
       model: azure_ai/grok-4-20-reasoning-1
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
-  - model_name: deepseek-v3.2
+  - model_name: deepseek-v3-2
+    model_info:
+      description: DeepSeek v3.2 (DeepSeek AI)
     litellm_params:
       model: azure_ai/DeepSeek-V3.2
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
-  - model_name: deepseek-v3.1
+  - model_name: deepseek-v3-1
+    model_info:
+      description: DeepSeek v3.1 (DeepSeek AI)
     litellm_params:
       model: azure_ai/DeepSeek-V3.1
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
   - model_name: deepseek-r1
+    model_info:
+      description: DeepSeek R1 (DeepSeek AI)
     litellm_params:
       model: azure_ai/DeepSeek-R1-0528
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: flux-2-flex
+    model_info:
+      description: FLUX 2 Flex (Black Forest Labs)
+    litellm_params:
+      model: azure_ai/FLUX.2-flex-1
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: flux-2-pro
+    model_info:
+      description: FLUX 2 Pro (Black Forest Labs)
+    litellm_params:
+      model: azure_ai/FLUX.2-pro-1
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: kimi-k2-6
+    model_info:
+      description: Kimi K2.6 (Moonshot AI)
+    litellm_params:
+      model: azure_ai/Kimi-K2.6-1
+      api_base: os.environ/AZURE_FOUNDRY_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: kimi-k2-5
+    model_info:
+      description: Kimi K2.5 (Moonshot AI)
+    litellm_params:
+      model: azure_ai/Kimi-K2.5-1
       api_base: os.environ/AZURE_FOUNDRY_BASE_URL
       api_key: os.environ/AZURE_API_KEY
 
@@ -204,6 +420,12 @@ litellm_settings:
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
   database_url: os.environ/DATABASE_URL
+
+search_tools:
+  - search_tool_name: searxng-search
+    litellm_params:
+      search_provider: searxng
+      api_base: http://searxng:8080
 
 mcp_servers:
   atlassian:

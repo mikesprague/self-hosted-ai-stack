@@ -38,10 +38,10 @@ services:
       DATABASE_URL: "postgresql://${DOCMOST_POSTGRES_USER}:${DOCMOST_POSTGRES_PASSWORD}@postgres-shared:5432/${DOCMOST_POSTGRES_DB}"
       REDIS_URL: 'redis://docmost-redis:6379'
       AI_DRIVER: openai
-      OPENAI_API_KEY: ${AZURE_FOUNDRY_API_KEY:?missing}
+      OPENAI_API_KEY: ${LITELLM_API_KEY}
       AI_EMBEDDING_MODEL: text-embedding-3-small
       AI_COMPLETION_MODEL: gpt-5.4-mini
-      OPENAI_API_URL: ${AZURE_FOUNDRY_OPENAI_BASE_URL:?missing}
+      OPENAI_API_URL: ${LITELLM_API_URL}
       # AI_DRIVER: ollama
       # OLLAMA_API_URL: ${OLLAMA_BASE_URL:?missing}
       # OLLAMA_API_KEY: ${OLLAMA_API_KEY:-}

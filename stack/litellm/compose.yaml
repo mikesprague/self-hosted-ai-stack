@@ -1,6 +1,6 @@
 services:
   litellm:
-    image: litellm/litellm:v1.83.7-stable
+    image: litellm/litellm:v1.83.14.rc.1
     container_name: litellm
     restart: unless-stopped
     ports:

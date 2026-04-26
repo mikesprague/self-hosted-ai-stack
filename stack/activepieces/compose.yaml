@@ -1,6 +1,6 @@
 services:
   activepieces:
-    image: ghcr.io/activepieces/activepieces:0.79.3
+    image: ghcr.io/activepieces/activepieces:latest
     container_name: activepieces
     restart: unless-stopped
     deploy:
@@ -17,7 +17,7 @@ services:
       # Generate with: openssl rand -hex 32
       AP_JWT_SECRET: ${ACTIVEPIECES_JWT_SECRET}
       # Frontend URL (set to your public URL)
-      AP_FRONTEND_URL: ${ACTIVEPIECES_FRONTEND_URL:-http://localhost:8080}
+      AP_FRONTEND_URL: "http://${TAILNET_IP_ADDRESS:-localhost}:${ACTIVEPIECES_PORT:-8080}"
       # PostgreSQL connection
       AP_POSTGRES_DATABASE: "${ACTIVEPIECES_POSTGRES_DATABASE}"
       AP_POSTGRES_HOST: "${POSTGRES_SHARED_HOST}"
@@ -27,6 +27,12 @@ services:
       # Redis connection
       AP_REDIS_HOST: "activepieces-redis"
       AP_REDIS_PORT: "6379"
+      # SMTP Settings
+      AP_SMTP_HOST: "${MAILPIT_SMTP_HOST}"
+      AP_SMTP_PORT: "${MAILPIT_SMTP_PORT}"
+      AP_SMTP_USER: "${MAILPIT_SMTP_USER}"
+      AP_SMTP_PASSWORD: "${MAILPIT_SMTP_PASSWORD}"
+      AP_SMTP_SENDER_EMAIL: "${ACTIVEPIECES_SMTP_SENDER_EMAIL}"
       # Execution settings
       AP_EXECUTION_MODE: "UNSANDBOXED"
       AP_ENVIRONMENT: "prod"
@@ -53,7 +59,7 @@ services:
     command:
       - redis-server
       - --maxmemory 225mb # a bit under container limit so you leave room for Redis overhead
-      - --maxmemory-policy allkeys-lru
+      - --maxmemory-policy noeviction
     deploy:
       resources:
         limits:

@@ -71,22 +71,100 @@ services:
         [
           {
             "type": "mcp",
-            "url": "${LITELLM_MCP_URL}",
+            "url": "http://atlassian-mcp:${ATLASSIAN_MCP_PORT}/mcp",
             "spec_type": "url",
             "spec": "",
             "path": "",
             "auth_type": "none",
-            "headers": {
-              "x-litellm-api-key": "Bearer ${LITELLM_API_KEY}"
+            "key": "",
+            "headers": {},
+            "config": {
+              "enable": true
             },
-            "config": { "enable": true },
             "info": {
-              "id": "litellm",
-              "name": "LiteLLM",
-              "description": "MCP Servers registered with LiteLLM"
+              "id": "atlassian",
+              "name": "Atlassian MCP",
+              "description": "Readonly Jira and Confluence tools for accessing data in our instances"
+            }
+          },
+          {
+            "type": "mcp",
+            "url": "${TDX_MCP_SERVER_URL}",
+            "spec_type": "url",
+            "spec": "",
+            "path": "",
+            "auth_type": "none",
+            "key": "",
+            "headers": {},
+            "config": {
+              "enable": true
+            },
+            "info": {
+              "id": "tdx",
+              "name": "TDX MCP",
+              "description": "Full-text search tools with access to TDX tickets and KB articles"
+            }
+          },
+          {
+            "type": "mcp",
+            "url": "https://mcp.context7.com/mcp",
+            "spec_type": "url",
+            "spec": "",
+            "path": "",
+            "auth_type": "none",
+            "key": "",
+            "headers": {
+              "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+            },
+            "config": {
+              "enable": true
+            },
+            "info": {
+              "id": "context7",
+              "name": "Context7 MCP",
+              "description": "Pull up-to-date version-specific llm-friendly documentation and code examples for any library"
+            }
+          },
+          {
+            "type": "mcp",
+            "url": "https://mcp.mermaid.ai/mcp",
+            "spec_type": "url",
+            "spec": "",
+            "path": "",
+            "auth_type": "none",
+            "key": "",
+            "headers": {},
+            "config": {
+              "enable": true
+            },
+            "info": {
+              "id": "mermaid",
+              "name": "Mermaid MCP",
+              "description": "Enables AI assistants to create, validate, and render Mermaid diagrams"
             }
           }
         ]
+
+      # {
+      #   "type": "mcp",
+      #   "url": "${LITELLM_MCP_URL}",
+      #   "spec_type": "url",
+      #   "spec": "",
+      #   "path": "",
+      #   "auth_type": "none",
+      #   "key": "",
+      #   "headers": {
+      #     "x-litellm-api-key": "Bearer ${LITELLM_API_KEY}"
+      #   },
+      #   "config": {
+      #     "enable": true
+      #   },
+      #   "info": {
+      #     "id": "litellm",
+      #     "name": "LiteLLM",
+      #     "description": "Tools from MCP Servers registered with LiteLLM"
+      #   }
+      # }
 
       # default suggestions shown in chat UI, modify or remove as you see fit
       DEFAULT_PROMPT_SUGGESTIONS: >-
