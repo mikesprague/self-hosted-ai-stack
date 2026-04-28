@@ -127,7 +127,7 @@ model_list:
     model_info:
       description: GPT 5.5 (OpenAI)
     litellm_params:
-      model: azure/gpt-5.5
+      model: azure/gpt-5.5-1
       api_base: os.environ/AZURE_API_BASE
       api_key: os.environ/AZURE_API_KEY
       api_version: os.environ/AZURE_API_VERSION

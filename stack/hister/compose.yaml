@@ -8,7 +8,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 384M
+          memory: 768M
     volumes:
       - ../../local-volumes/hister/data:/hister/data:rw
     environment:

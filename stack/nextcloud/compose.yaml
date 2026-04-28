@@ -62,5 +62,5 @@ services:
     volumes:
       - ../../local-volumes/nextcloud/app/html:/var/www/html
       - ../../local-volumes/nextcloud/app/data:/var/www/html/data
-      - /Volumes/SanDisk 2TB/NextcloudExternal:/mnt/nextcloud-external
-      - /Volumes/Crucial 4TB/NextcloudExternal:/mnt/nextcloud-external-4tb
+      # - /Volumes/SanDisk 2TB/NextcloudExternal:/mnt/nextcloud-external
+      # - /Volumes/Crucial 4TB/NextcloudExternal:/mnt/nextcloud-external-4tb

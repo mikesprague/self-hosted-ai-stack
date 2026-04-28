@@ -8,7 +8,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1280M
+          memory: 2048M
     depends_on:
       postgres-shared:
         condition: service_healthy
