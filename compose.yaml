@@ -13,10 +13,11 @@ include:
       # Personal Cloud
       - ./stack/nextcloud/compose.yaml
       # AI/LLM
-      - ./stack/open-webui/compose.yaml
-      - ./stack/open-notebook/compose.yaml
-      - ./stack/litellm/compose.yaml
       - ./stack/atlassian-mcp/compose.yaml
+      - ./stack/anythingllm/compose.yaml
+      - ./stack/litellm/compose.yaml
+      - ./stack/open-notebook/compose.yaml
+      - ./stack/open-webui/compose.yaml
       # Search Engine
       - ./stack/degoog/compose.yaml
       - ./stack/hister/compose.yaml
