@@ -28,6 +28,8 @@ services:
     depends_on:
       postgres-shared:
         condition: service_healthy
+      litellm:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1" ]
       interval: 30s
