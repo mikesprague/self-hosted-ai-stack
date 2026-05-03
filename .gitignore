@@ -31,3 +31,5 @@ Temporary Items
 local-volumes/
 *.crt
 *.key
+
+.kilo
