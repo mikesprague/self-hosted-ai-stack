@@ -1,110 +1,94 @@
 model_list:
-  - model_name: granite4.1-ollama-local
+  - model_name: granite4.1-ollama
     model_info:
       description: Granite 4.1 (Ollama Local)
     litellm_params:
       model: ollama/granite4.1:3b
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: gemma4-ollama-local
+  - model_name: gemma4-ollama
     model_info:
       description: Gemma 4 (Ollama Local)
     litellm_params:
       model: ollama/gemma4:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: gemma4-31b-ollama-cloud
-    model_info:
-      description: Gemma 4 (Ollama Cloud)
-    litellm_params:
-      model: ollama/gemma4:31b-cloud
-      api_base: os.environ/OLLAMA_API_BASE
-      api_key: os.environ/OLLAMA_API_KEY
+  # - model_name: gemma4-31b-ollama-cloud
+  #   model_info:
+  #     description: Gemma 4 (Ollama Cloud)
+  #   litellm_params:
+  #     model: ollama/gemma4:31b-cloud
+  #     api_base: os.environ/OLLAMA_API_BASE
+  #     api_key: os.environ/OLLAMA_API_KEY
 
-  - model_name: dolphin3-ollama-local
+  - model_name: dolphin3-ollama
     model_info:
       description: Dolphin 3 (Ollama Local)
     litellm_params:
       model: ollama/dolphin3:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: qwen3.5-ollama-local
+  - model_name: qwen3.5-ollama
     model_info:
       description: Qwen 3.5 (Ollama Local)
     litellm_params:
       model: ollama/qwen3.5:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: deepseek-r1-ollama-local
+  - model_name: deepseek-r1-ollama
     model_info:
       description: DeepSeek R1 (Ollama Local)
     litellm_params:
       model: ollama/deepseek-r1:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: deepseek-v4-flash-ollama-cloud
-    model_info:
-      description: DeepSeek V4 Flash (Ollama Cloud)
-    litellm_params:
-      model: ollama/deepseek-v4-flash:cloud
-      api_base: os.environ/OLLAMA_API_BASE
-      api_key: os.environ/OLLAMA_API_KEY
+  # - model_name: deepseek-v4-flash-ollama-cloud
+  #   model_info:
+  #     description: DeepSeek V4 Flash (Ollama Cloud)
+  #   litellm_params:
+  #     model: ollama/deepseek-v4-flash:cloud
+  #     api_base: os.environ/OLLAMA_API_BASE
+  #     api_key: os.environ/OLLAMA_API_KEY
 
-  - model_name: deepseek-v4-pro-ollama-cloud
-    model_info:
-      description: DeepSeek V4 Pro (Ollama Cloud)
-    litellm_params:
-      model: ollama/deepseek-v4-pro:cloud
-      api_base: os.environ/OLLAMA_API_BASE
-      api_key: os.environ/OLLAMA_API_KEY
+  # - model_name: deepseek-v4-pro-ollama-cloud
+  #   model_info:
+  #     description: DeepSeek V4 Pro (Ollama Cloud)
+  #   litellm_params:
+  #     model: ollama/deepseek-v4-pro:cloud
+  #     api_base: os.environ/OLLAMA_API_BASE
+  #     api_key: os.environ/OLLAMA_API_KEY
 
-  - model_name: minimax-m2.7-ollama-cloud
-    model_info:
-      description: Minimax M2.7 (Ollama Cloud)
-    litellm_params:
-      model: ollama/minimax-m2.7:cloud
-      api_base: os.environ/OLLAMA_API_BASE
-      api_key: os.environ/OLLAMA_API_KEY
+  # - model_name: minimax-m2.7-ollama-cloud
+  #   model_info:
+  #     description: Minimax M2.7 (Ollama Cloud)
+  #   litellm_params:
+  #     model: ollama/minimax-m2.7:cloud
+  #     api_base: os.environ/OLLAMA_API_BASE
+  #     api_key: os.environ/OLLAMA_API_KEY
 
-  - model_name: glm-5-ollama-cloud
-    model_info:
-      description: GLM 5 (Ollama Cloud)
-    litellm_params:
-      model: ollama/glm-5:cloud
-      api_base: os.environ/OLLAMA_API_BASE
-      api_key: os.environ/OLLAMA_API_KEY
+  # - model_name: glm-5-ollama-cloud
+  #   model_info:
+  #     description: GLM 5 (Ollama Cloud)
+  #   litellm_params:
+  #     model: ollama/glm-5:cloud
+  #     api_base: os.environ/OLLAMA_API_BASE
+  #     api_key: os.environ/OLLAMA_API_KEY
 
-  - model_name: glm-ocr-ollama-local
-    model_info:
-      description: GLM OCR (Ollama Local)
-      mode: ocr
-    litellm_params:
-      model: ollama/glm-ocr:latest
-      api_base: os.environ/OLLAMA_API_BASE
-
-  - model_name: reader-lm-ollama-local
-    model_info:
-      description: Reader LM (Ollama Local)
-      mode: ocr
-    litellm_params:
-      model: ollama/reader-lm:latest
-      api_base: os.environ/OLLAMA_API_BASE
-
-  - model_name: gpt-oss-ollama-local
+  - model_name: gpt-oss-ollama
     model_info:
       description: GPT OSS (Ollama Local)
     litellm_params:
       model: ollama/gpt-oss:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: gpt-oss-ollama-local
+  - model_name: gpt-oss-ollama
     model_info:
       description: GPT OSS (Ollama Local)
     litellm_params:
       model: ollama/gpt-oss:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: embeddinggemma-ollama-local
+  - model_name: embeddinggemma-ollama
     model_info:
       description: Embedding Gemma (Ollama Local)
       mode: embedding
@@ -112,7 +96,7 @@ model_list:
       model: ollama/embeddinggemma:latest
       api_base: os.environ/OLLAMA_API_BASE
 
-  - model_name: nomic-embed-text-v2-moe-ollama-local
+  - model_name: nomic-embed-text-v2-moe-ollama
     model_info:
       description: Nomic Embed Text v2 Moe (Ollama Local)
       mode: embedding
@@ -500,7 +484,7 @@ search_tools:
   - search_tool_name: searxng-search
     litellm_params:
       search_provider: searxng
-      api_base: http://searxng:8080
+      api_base: os.environ/SEARXNG_API_BASE
 
 mcp_servers:
   atlassian:
