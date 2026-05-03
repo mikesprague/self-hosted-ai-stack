@@ -1,6 +1,6 @@
 services:
   litellm:
-    image: litellm/litellm:main-stable
+    image: litellm/litellm:v1.83.14-stable
     container_name: litellm
     restart: unless-stopped
     ports:
@@ -11,8 +11,6 @@ services:
           memory: 2048M
     depends_on:
       postgres-shared:
-        condition: service_healthy
-      atlassian-mcp:
         condition: service_healthy
     environment:
       LITELLM_MASTER_KEY: "${LITELLM_MASTER_KEY}"
