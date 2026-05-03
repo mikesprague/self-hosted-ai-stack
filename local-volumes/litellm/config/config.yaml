@@ -74,6 +74,22 @@ model_list:
       api_base: os.environ/OLLAMA_API_BASE
       api_key: os.environ/OLLAMA_API_KEY
 
+  - model_name: glm-ocr-ollama-local
+    model_info:
+      description: GLM OCR (Ollama Local)
+      mode: ocr
+    litellm_params:
+      model: ollama/glm-ocr:latest
+      api_base: os.environ/OLLAMA_API_BASE
+
+  - model_name: reader-lm-ollama-local
+    model_info:
+      description: Reader LM (Ollama Local)
+      mode: ocr
+    litellm_params:
+      model: ollama/reader-lm:latest
+      api_base: os.environ/OLLAMA_API_BASE
+
   - model_name: gpt-oss-ollama-local
     model_info:
       description: GPT OSS (Ollama Local)
@@ -522,4 +538,6 @@ mcp_servers:
   # image_generation,
   # moderation,
   # rerank,
-  # search
+  # realtime
+  # batch
+  # ocr
