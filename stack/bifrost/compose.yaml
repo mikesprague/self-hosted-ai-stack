@@ -32,7 +32,6 @@ services:
       bifrost-qdrant:
         condition: service_started
     environment:
-      APP_PORT: "${BIFROST_APP_PORT:-8080}"
       APP_HOST: "${BIFROST_APP_HOST:-0.0.0.0}"
       LOG_LEVEL: "${BIFROST_LOG_LEVEL:-debug}"
       LOG_STYLE: "${BIFROST_LOG_STYLE:-json}"
