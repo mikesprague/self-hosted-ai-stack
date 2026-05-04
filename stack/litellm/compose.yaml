@@ -1,6 +1,6 @@
 services:
   litellm:
-    image: litellm/litellm:v1.83.14-stable
+    image: litellm/litellm:1.84.0-dev.2
     container_name: litellm
     restart: unless-stopped
     ports:
@@ -21,8 +21,10 @@ services:
       OLLAMA_API_KEY: "${OLLAMA_API_KEY}"
       AZURE_API_KEY: "${AZURE_OPENAI_API_KEY}"
       AZURE_API_BASE: "${AZURE_FOUNDRY_BASE_URL}"
-      AZURE_FOUNDRY_BASE_URL: "${AZURE_FOUNDRY_BASE_URL}"
+      AZURE_OPENAI_BASE_URL: "${AZURE_OPENAI_BASE_URL}"
       AZURE_API_VERSION: "${AZURE_OPENAI_API_VERSION}"
+      AZURE_FOUNDRY_SORA_BASE_URL: "${AZURE_FOUNDRY_SORA_BASE_URL}"
+      AZURE_FOUNDRY_IMAGES_BASE_URL: "${AZURE_FOUNDRY_IMAGES_BASE_URL}"
       CONTEXT7_API_KEY: "${CONTEXT7_API_KEY}"
       TDX_MCP_SERVER_URL: "${TDX_MCP_SERVER_URL}"
       SEARXNG_API_BASE: "${SEARXNG_BASE_URL}"
