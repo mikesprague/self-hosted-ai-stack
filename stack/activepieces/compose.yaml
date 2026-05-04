@@ -6,7 +6,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1280M
+          memory: 2048M
     ports:
       - "${ACTIVEPIECES_PORT:-8080}:80"
     environment:

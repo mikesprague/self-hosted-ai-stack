@@ -29,7 +29,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1536M
+          memory: 2048M
     depends_on:
       open-notebook-surrealdb:
         condition: service_healthy
