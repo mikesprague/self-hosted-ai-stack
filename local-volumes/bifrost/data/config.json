@@ -1,0 +1,106 @@
+{
+  "providers": {
+    "azure": {
+      "keys": [
+        {
+          "name": "Azure Foundry API",
+          "value": "env.AZURE_OPENAI_API_KEY",
+          "weight": 1,
+          "models": [
+            "gpt-4.1",
+            "gpt-4.1-mini",
+            "gpt-5.4",
+            "gpt-5.4-mini",
+            "gpt-5.4-nano",
+            "gpt-5.5-1",
+            "gpt-4o-mini-transcribe",
+            "gpt-4o-mini-tts",
+            "gpt-audio-1.5-1",
+            "gpt-oss-20b",
+            "gpt-image-1-mini",
+            "gpt-image-1-5",
+            "gpt-image-2-1",
+            "sora-2",
+            "text-embedding-3-large",
+            "text-embedding-3-small",
+            "embed-v-4-0",
+            "cohere-rerank-v4-0-fast",
+            "cohere-rerank-v4-0-pro",
+            "claude-opus-4-5",
+            "claude-sonnet-4-5",
+            "claude-haiku-4-5",
+            "claude-sonnet-4-6",
+            "claude-opus-4-6",
+            "claude-opus-4-7",
+            "grok-4-20-non-reasoning-1",
+            "grok-4-20-reasoning-1",
+            "DeepSeek-V4-Flash",
+            "FLUX.2-Pro-1",
+            "Kimi-K2.5-1",
+            "Kimi-K2.6-1"
+          ],
+          "azure_key_config": {
+            "endpoint": "env.AZURE_ENDPOINT"
+          },
+          "aliases": {
+            "gpt-4.1": "gpt-4.1",
+            "gpt-4.1-mini": "gpt-4.1-mini",
+            "gpt-5.4": "gpt-5.4",
+            "gpt-5.4-mini": "gpt-5.4-mini",
+            "gpt-5.4-nano": "gpt-5.4-nano",
+            "gpt-5.5": "gpt-5.5-1",
+            "gpt-4o-mini-transcribe": "gpt-4o-mini-transcribe",
+            "gpt-4o-mini-tts": "gpt-4o-mini-tts",
+            "gpt-audio-1.5": "gpt-audio-1.5-1",
+            "gpt-oss-20b": "gpt-oss-20b",
+            "gpt-image-1-mini": "gpt-image-1-mini",
+            "gpt-image-1-5": "gpt-image-1-5",
+            "gpt-image-2": "gpt-image-2-1",
+            "sora-2": "sora-2",
+            "text-embedding-3-large": "text-embedding-3-large",
+            "text-embedding-3-small": "text-embedding-3-small",
+            "embed-v-4-0": "embed-v-4-0",
+            "cohere-rerank-v4-0-fast": "cohere-rerank-v4-0-fast",
+            "cohere-rerank-v4-0-pro": "cohere-rerank-v4-0-pro",
+            "claude-opus-4-5": "claude-opus-4-5",
+            "claude-sonnet-4-5": "claude-sonnet-4-5",
+            "claude-haiku-4-5": "claude-haiku-4-5",
+            "claude-sonnet-4-6": "claude-sonnet-4-6",
+            "claude-opus-4-6": "claude-opus-4-6",
+            "claude-opus-4-7": "claude-opus-4-7",
+            "grok-4-2-fast-non-reasoning": "grok-4-20-non-reasoning-1",
+            "grok-4-2-fast-reasoning": "grok-4-20-reasoning-1",
+            "deepseek-v4-flash": "DeepSeek-V4-Flash",
+            "flux-2-pro": "FLUX.2-Pro-1",
+            "kimi-k2-5": "Kimi-K2.5-1",
+            "kimi-k2-6": "Kimi-K2.6-1"
+          }
+        }
+      ],
+      "network_config": {
+        "base_url": "env.AZURE_ENDPOINT"
+      }
+    },
+    "ollama": {
+      "keys": [
+        {
+          "name": "Ollama",
+          "value": "env.OLLAMA_API_KEY",
+          "models": ["*"],
+          "weight": 1
+        }
+      ],
+      "network_config": {
+        "base_url": "env.OLLAMA_URL"
+      }
+    }
+  },
+  "vector_store": {
+    "enabled": true,
+    "type": "qdrant",
+    "config": {
+      "host": "bifrost-qdrant",
+      "port": 6334
+    }
+  }
+}
