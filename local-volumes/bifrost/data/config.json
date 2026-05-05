@@ -1,5 +1,5 @@
 {
-  "providers": {
+   "providers": {
     "azure": {
       "keys": [
         {
@@ -102,5 +102,40 @@
       "host": "bifrost-qdrant",
       "port": 6334
     }
+  },
+  "mcp": {
+    "client_configs": [
+      {
+        "name": "Atlassian",
+        "connection_type": "http",
+        "connection_string": "env.ATLASSIAN_MCP_SERVER_URL",
+        "is_ping_available": false,
+        "tools_to_execute": ["*"]
+      },
+      {
+        "name": "TDX",
+        "connection_type": "http",
+        "connection_string": "env.TDX_MCP_SERVER_URL",
+        "is_ping_available": false,
+        "tools_to_execute": ["*"]
+      },
+      {
+        "name": "Context7",
+        "connection_type": "http",
+        "connection_string": "env.CONTEXT7_MCP_SERVER_URL",
+        "headers": {
+          "CONTEXT7_API_KEY": "env.CONTEXT7_API_KEY"
+        },
+        "is_ping_available": true,
+        "tools_to_execute": ["*"]
+      },
+      {
+        "name": "Mermaid",
+        "connection_type": "http",
+        "connection_string": "env.MERMAID_MCP_SERVER_URL",
+        "is_ping_available": true,
+        "tools_to_execute": ["*"]
+      }
+    ]
   }
 }
