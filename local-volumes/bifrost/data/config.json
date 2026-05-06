@@ -1,5 +1,5 @@
 {
-   "providers": {
+  "providers": {
     "azure": {
       "keys": [
         {
@@ -18,7 +18,7 @@
             "gpt-audio-1.5-1",
             "gpt-oss-20b",
             "gpt-image-1-mini",
-            "gpt-image-1-5",
+            "gpt-image-1.5",
             "gpt-image-2-1",
             "sora-2",
             "text-embedding-3-large",
@@ -54,7 +54,7 @@
             "gpt-audio-1.5": "gpt-audio-1.5-1",
             "gpt-oss-20b": "gpt-oss-20b",
             "gpt-image-1-mini": "gpt-image-1-mini",
-            "gpt-image-1-5": "gpt-image-1-5",
+            "gpt-image-1.5": "gpt-image-1.5",
             "gpt-image-2": "gpt-image-2-1",
             "sora-2": "sora-2",
             "text-embedding-3-large": "text-embedding-3-large",
