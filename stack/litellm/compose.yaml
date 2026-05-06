@@ -20,28 +20,28 @@ services:
     volumes:
       - ../../local-volumes/litellm/redis/data:/data
 
-  litellm-qdrant:
-    image: qdrant/qdrant:latest
-    container_name: litellm-qdrant
-    ports:
-      - "6633:6333" # REST API
-      - "6634:6334" # gRPC API (optional)
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-    environment:
-      QDRANT__LOG_LEVEL: "${LITELLM_QDRANT_LOG_LEVEL:-info}"
-      QDRANT__STORAGE__PATH: "/qdrant/storage"
-      QDRANT__STORAGE__USE_S3: "false"
-      QDRANT__TELEMETRY_DISABLED: "true"
-    volumes:
-      - ../../local-volumes/litellm/qdrant/storage:/qdrant/storage
-      # - ../../local-volumes/litellm/qdrant/config.yaml:/qdrant/config.yaml
-    restart: unless-stopped
+  # litellm-qdrant:
+  #   image: qdrant/qdrant:latest
+  #   container_name: litellm-qdrant
+  #   ports:
+  #     - "6633:6333" # REST API
+  #     - "6634:6334" # gRPC API (optional)
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 512M
+  #   environment:
+  #     QDRANT__LOG_LEVEL: "${LITELLM_QDRANT_LOG_LEVEL:-info}"
+  #     QDRANT__STORAGE__PATH: "/qdrant/storage"
+  #     QDRANT__STORAGE__USE_S3: "false"
+  #     QDRANT__TELEMETRY_DISABLED: "true"
+  #   volumes:
+  #     - ../../local-volumes/litellm/qdrant/storage:/qdrant/storage
+  #     # - ../../local-volumes/litellm/qdrant/config.yaml:/qdrant/config.yaml
+  #   restart: unless-stopped
 
   litellm:
-    image: litellm/litellm:1.84.0-dev.2
+    image: litellm/litellm:1.84.0-rc.1
     container_name: litellm
     restart: unless-stopped
     ports:
