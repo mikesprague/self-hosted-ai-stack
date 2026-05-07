@@ -10,7 +10,7 @@ services:
     depends_on:
       postgres-shared:
         condition: service_healthy
-      litellm:
+      bifrost:
         condition: service_healthy
     ports:
       - "${OPEN_WEBUI_PORT:-3000}:8080"
@@ -43,22 +43,22 @@ services:
       OLLAMA_API_KEY: "${OLLAMA_API_KEY:-}"
 
       ENABLE_OPENAI_API: "true"
-      OPENAI_API_BASE_URL: "${LITELLM_API_URL}"
-      OPENAI_API_KEY: "${LITELLM_API_KEY}"
+      OPENAI_API_BASE_URL: "${BIFROST_OPENAI_API_URL}"
+      OPENAI_API_KEY: "${BIFROST_API_KEY}"
 
       ENABLE_IMAGE_GENERATION: "true"
       ENABLE_IMAGE_PROMPT_GENERATION: "true"
       IMAGE_GENERATION_ENGINE: "openai"
-      IMAGE_GENERATION_MODEL: "${OPEN_WEBUI_IMAGE_GENERATION_MODEL:-gpt-image-1.5}"
+      IMAGE_GENERATION_MODEL: "${OPEN_WEBUI_IMAGE_GENERATION_MODEL:-azure/gpt-image-1.5}"
       IMAGE_SIZE: "auto"
       ENABLE_IMAGE_EDIT: "true"
       IMAGE_EDIT_ENGINE: "openai"
-      IMAGE_EDIT_MODEL: "${OPEN_WEBUI_IMAGE_EDIT_MODEL:-gpt-image-1.5}"
+      IMAGE_EDIT_MODEL: "${OPEN_WEBUI_IMAGE_EDIT_MODEL:-azure/gpt-image-1.5}"
       IMAGE_EDIT_SIZE: "auto"
-      IMAGES_OPENAI_API_BASE_URL: "${LITELLM_API_URL}"
-      IMAGES_OPENAI_API_KEY: "${LITELLM_API_KEY}"
-      IMAGES_EDIT_OPENAI_API_BASE_URL: "${LITELLM_API_URL}"
-      IMAGES_EDIT_OPENAI_API_KEY: "${LITELLM_API_KEY}"
+      IMAGES_OPENAI_API_BASE_URL: "${BIFROST_OPENAI_IMAGES_API_URL}"
+      IMAGES_OPENAI_API_KEY: "${BIFROST_API_KEY}"
+      IMAGES_EDIT_OPENAI_API_BASE_URL: "${BIFROST_OPENAI_IMAGES_API_URL}"
+      IMAGES_EDIT_OPENAI_API_KEY: "${BIFROST_API_KEY}"
 
       ENABLE_WEB_SEARCH: "true"
       ENABLE_SEARCH_QUERY_GENERATION: "true"
@@ -144,27 +144,6 @@ services:
             }
           }
         ]
-
-      # {
-      #   "type": "mcp",
-      #   "url": "${LITELLM_MCP_URL}",
-      #   "spec_type": "url",
-      #   "spec": "",
-      #   "path": "",
-      #   "auth_type": "none",
-      #   "key": "",
-      #   "headers": {
-      #     "x-litellm-api-key": "Bearer ${LITELLM_API_KEY}"
-      #   },
-      #   "config": {
-      #     "enable": true
-      #   },
-      #   "info": {
-      #     "id": "litellm",
-      #     "name": "LiteLLM",
-      #     "description": "Tools from MCP Servers registered with LiteLLM"
-      #   }
-      # }
 
       # default suggestions shown in chat UI, modify or remove as you see fit
       DEFAULT_PROMPT_SUGGESTIONS: >-

@@ -16,7 +16,8 @@ include:
       - ./stack/atlassian-mcp/compose.yaml
       - ./stack/anythingllm/compose.yaml
       - ./stack/bifrost/compose.yaml
-      - ./stack/litellm/compose.yaml
+      # - ./stack/khoj/compose.yaml
+      # - ./stack/litellm/compose.yaml
       - ./stack/open-notebook/compose.yaml
       - ./stack/open-webui/compose.yaml
       # Search Engine
