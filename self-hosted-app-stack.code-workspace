@@ -1,8 +1,8 @@
 {
   "folders": [
     {
-      "path": "."
-    }
+      "path": ".",
+    },
   ],
   "settings": {
     "cSpell.words": [
@@ -55,6 +55,7 @@
       "homarr",
       "homeassistant",
       "hoppscotch",
+      "huggingface",
       "icereed",
       "INITDB",
       "innodb",
@@ -63,6 +64,8 @@
       "johannesjo",
       "journaling",
       "karakeep",
+      "KHOJ",
+      "lancedb",
       "lastpass",
       "lfnovo",
       "litellm",
@@ -87,6 +90,7 @@
       "NEXTAUTH",
       "nextcloud",
       "noeviction",
+      "nomic",
       "OLLAMA",
       "openwebui",
       "orbstack",
@@ -135,7 +139,7 @@
       "webui",
       "yaade",
       "zenika",
-      "zhfahim"
+      "zhfahim",
     ],
   },
 }
