@@ -29,6 +29,15 @@ Temporary Items
 .env
 
 local-volumes/
+stack/siyuan
+stack/flowise
+stack/khoj
+stack/litellm
+local-volumes/siyuan
+local-volumes/flowise
+local-volumes/khoj
+local-volumes/litellm
+
 *.crt
 *.key
 
