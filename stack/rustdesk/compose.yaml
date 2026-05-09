@@ -1,0 +1,28 @@
+services:
+  hbbr:
+    image: rustdesk/rustdesk-server:latest
+    container_name: hbbr
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+    command: hbbr
+    volumes:
+      - ../../local-volumes/rustdesk/data:/root
+    restart: unless-stopped
+
+  hbbs:
+    image: rustdesk/rustdesk-server:latest
+    container_name: hbbs
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+    environment:
+      - ALWAYS_USE_RELAY=Y
+    command: hbbs
+    volumes:
+      - ../../local-volumes/rustdesk/data:/root
+    depends_on:
+      - hbbr
+    restart: unless-stopped

@@ -42,7 +42,7 @@ include:
       - ./stack/freshrss/compose.yaml
       # Task Management/Productivity
       - ./stack/super-productivity/compose.yaml
-      # Automation/Workflow
+      # Workflows/Automation
       - ./stack/activepieces/compose.yaml
       - ./stack/n8n/compose.yaml
       # Monitoring/Management
@@ -56,6 +56,8 @@ include:
       - ./stack/hoppscotch/compose.yaml
       - ./stack/restfox/compose.yaml
       - ./stack/yaade/compose.yaml
+      # Remote Desktop
+      - ./stack/rustdesk/compose.yaml
       # File Conversion
       - ./stack/vert/compose.yaml
       # Dashboard
