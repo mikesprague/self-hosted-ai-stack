@@ -1,0 +1,23 @@
+services:
+  databasus:
+    image: databasus/databasus:latest
+    container_name: databasus
+    ports:
+      - "${DATABASUS_PORT:-4005}:4005"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      postgres-shared:
+        condition: service_healthy
+    environment:
+      SMTP_HOST: "${MAILPIT_SMTP_HOST:-}"
+      SMTP_PORT: "${MAILPIT_SMTP_PORT:-}"
+      SMTP_USER: "${MAILPIT_SMTP_USER:-}"
+      SMTP_PASSWORD: "${MAILPIT_SMTP_PASSWORD:-}"
+      SMTP_FROM: "${DATABASUS_MAIL_FROM:-}"
+      DATABASUS_URL: "http://${TAILNET_IP_ADDRESS:-localhost}:${DATABASUS_PORT:-4005}"
+    volumes:
+      - ../../local-volumes/databasus/data:/databasus-data
+    restart: unless-stopped

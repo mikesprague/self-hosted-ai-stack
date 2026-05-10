@@ -8,8 +8,9 @@ networks:
 include:
   - path:
       # Postgres
-      - ./stack/postgres-shared/compose.yaml
+      - ./stack/databasus/compose.yaml
       - ./stack/dbgate/compose.yaml
+      - ./stack/postgres-shared/compose.yaml
       # Personal Cloud
       - ./stack/nextcloud/compose.yaml
       # AI/LLM
