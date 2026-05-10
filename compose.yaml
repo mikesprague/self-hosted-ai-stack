@@ -26,14 +26,14 @@ include:
       # Password Manager
       - ./stack/vaultwarden/compose.yaml
       # PKM Tools
-      - ./stack/anchor/compose.yaml
-      - ./stack/affine/compose.yaml
+      # - ./stack/anchor/compose.yaml
+      # - ./stack/affine/compose.yaml
       - ./stack/blinko/compose.yaml
-      - ./stack/docmost/compose.yaml
-      - ./stack/flatnotes/compose.yaml
+      # - ./stack/docmost/compose.yaml
+      # - ./stack/flatnotes/compose.yaml
       - ./stack/karakeep/compose.yaml
-      - ./stack/jotty/compose.yaml
-      - ./stack/logseq/compose.yaml
+      # - ./stack/jotty/compose.yaml
+      # - ./stack/logseq/compose.yaml
       - ./stack/mealie/compose.yaml
       - ./stack/memos/compose.yaml
       # - ./stack/paperless-ngx/compose.yaml
