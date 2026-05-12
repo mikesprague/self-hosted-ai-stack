@@ -33,10 +33,14 @@ stack/siyuan
 stack/flowise
 stack/khoj
 stack/litellm
+stack/docmost
+stack/affine
 local-volumes/siyuan
 local-volumes/flowise
 local-volumes/khoj
 local-volumes/litellm
+local-volumes/docmost
+local-volumes/affine
 
 *.crt
 *.key

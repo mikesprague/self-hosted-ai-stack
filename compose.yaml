@@ -58,7 +58,7 @@ include:
       - ./stack/restfox/compose.yaml
       - ./stack/yaade/compose.yaml
       # Remote Desktop
-      - ./stack/rustdesk/compose.yaml
+      # - ./stack/rustdesk/compose.yaml
       # File Conversion
       - ./stack/vert/compose.yaml
       # Dashboard
