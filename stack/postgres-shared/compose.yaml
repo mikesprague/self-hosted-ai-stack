@@ -10,6 +10,10 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_SHARED_SUPERUSER_PASSWORD}"
       POSTGRES_DB: "${POSTGRES_SHARED_DEFAULT_DB}"
       POSTGRES_INITDB_ARGS: "--data-checksums"
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "${POSTGRES_SHARED_SUPERUSER}", "-d", "${POSTGRES_SHARED_DEFAULT_DB}" ]
       interval: 10s

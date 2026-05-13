@@ -1,12 +1,12 @@
 services:
   activepieces:
-    image: ghcr.io/activepieces/activepieces:latest
+    image: ghcr.io/activepieces/activepieces:0.83.0
     container_name: activepieces
     restart: unless-stopped
     deploy:
       resources:
         limits:
-          memory: 3072M
+          memory: 6144M
     ports:
       - "${ACTIVEPIECES_PORT:-8080}:80"
     environment:
@@ -63,7 +63,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 1024M
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 10s
