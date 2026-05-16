@@ -1,0 +1,13 @@
+name: self-hosted-app-stack
+repository_url: https://github.com/mikesprague/self-hosted-app-stack.git
+reference: refs/heads/main
+working_dir: stack
+auto_discover:
+  enabled: true
+  depth: 1
+  delete: false
+env_files:
+  - .env
+compose_files:
+  - compose.yaml
+remove_orphans: true
